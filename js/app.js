@@ -28,27 +28,183 @@ document.addEventListener('DOMContentLoaded', () => {
   setupInteractiveBudgetSlider();
   setupWatchHowItWorks();
 
+  // 8. Setup Secret 3-Click Admin Studio Trigger on Hero Headline Title
+  setupSecretTitleAdmin(admin);
+
+  // 9. Setup Official Facebook & Support Email Channels
+  setupContactAndFooter();
+
   console.log('Treat Vertical Flow and Storytelling initialized successfully.');
 
   function setupDownloadActions() {
-    const flowBtn = document.getElementById('flow-download-btn');
-    const apkDirect = document.getElementById('apk-direct-link');
+    const downloadModal = document.getElementById('app-download-modal');
+    const downloadBackdrop = document.getElementById('app-download-backdrop');
+    const closeDownloadBtn = document.getElementById('close-download-modal-btn');
+    const waitlistForm = document.getElementById('modal-waitlist-form');
+    const waitlistInput = document.getElementById('modal-waitlist-input');
+    const waitlistSuccess = document.getElementById('modal-waitlist-success');
+    const waitlistSection = document.getElementById('modal-waitlist-section');
+
     const qrModal = document.getElementById('qr-code-modal');
     const openQrBtn = document.getElementById('open-qr-modal-btn');
     const closeQrBtn = document.getElementById('close-qr-modal-btn');
     const qrBackdrop = document.getElementById('qr-modal-backdrop');
 
-    const handleDownload = (e) => {
-      const target = e.currentTarget.getAttribute('href');
-      if (!target || target === '#' || target.startsWith('#')) {
+    function getDownloadConfig() {
+      if (window.treatApp && window.treatApp.admin && window.treatApp.admin.config && window.treatApp.admin.config.download) {
+        return window.treatApp.admin.config.download;
+      }
+      try {
+        const stored = localStorage.getItem('treat_landing_config_v4');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (parsed && parsed.download) return parsed.download;
+        }
+      } catch (e) {}
+      return (window.TREAT_DEFAULT_DATA && window.TREAT_DEFAULT_DATA.download) ? window.TREAT_DEFAULT_DATA.download : {};
+    }
+
+    function openPreLaunchModal() {
+      if (!downloadModal) return;
+      const dlConfig = getDownloadConfig();
+
+      const badgeEl = document.getElementById('modal-download-badge');
+      const titleEl = document.getElementById('modal-download-title');
+      const subEl = document.getElementById('modal-download-subtitle');
+      const notifyBtnText = document.getElementById('modal-notify-btn-text');
+      const progressLabelEl = document.getElementById('modal-progress-label');
+      const progressValEl = document.getElementById('modal-progress-percent-val');
+      const progressFillEl = document.getElementById('modal-progress-bar-fill');
+      const progressSubEl = document.getElementById('modal-progress-sublabel');
+      const footerNoteEl = document.getElementById('modal-footer-note');
+      const liveLinks = document.getElementById('modal-live-links');
+      const playBtn = document.getElementById('modal-playstore-btn');
+      const apkBtn = document.getElementById('modal-direct-apk-btn');
+      const apkSizeLabel = document.getElementById('modal-apk-size-label');
+
+      if (badgeEl && dlConfig.modalBadge) {
+        badgeEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-[#E040A0] animate-ping"></span><span>${dlConfig.modalBadge}</span>`;
+      }
+      if (titleEl && dlConfig.modalTitle) titleEl.textContent = dlConfig.modalTitle;
+      if (subEl && dlConfig.modalSubtitle) subEl.textContent = dlConfig.modalSubtitle;
+      if (notifyBtnText && dlConfig.modalNotifyBtnText) notifyBtnText.textContent = dlConfig.modalNotifyBtnText;
+
+      const percent = (dlConfig.progressPercent !== undefined && dlConfig.progressPercent !== null) ? dlConfig.progressPercent : 85;
+      if (progressFillEl) progressFillEl.style.width = `${percent}%`;
+      if (progressValEl) progressValEl.textContent = `${percent}%`;
+      if (progressLabelEl && dlConfig.progressLabel) progressLabelEl.textContent = dlConfig.progressLabel;
+      if (progressSubEl && dlConfig.progressSublabel) progressSubEl.textContent = dlConfig.progressSublabel;
+      if (footerNoteEl && dlConfig.modalFooterNote) footerNoteEl.textContent = dlConfig.modalFooterNote;
+
+      if (apkSizeLabel && dlConfig.apkSize) apkSizeLabel.textContent = dlConfig.apkSize;
+      const successTextEl = document.getElementById('modal-success-text');
+      if (successTextEl && dlConfig.modalSuccessMsg) successTextEl.textContent = dlConfig.modalSuccessMsg;
+
+      // Show live store links if configured
+      if (liveLinks) {
+        if (dlConfig.mode === 'play_store' || dlConfig.mode === 'direct_apk' || dlConfig.mode === 'store_and_apk') {
+          liveLinks.classList.remove('hidden');
+          if (playBtn && dlConfig.playStoreUrl) playBtn.href = dlConfig.playStoreUrl;
+          if (apkBtn && dlConfig.apkDownloadUrl) {
+            apkBtn.href = dlConfig.apkDownloadUrl;
+            apkBtn.setAttribute('download', dlConfig.apkFileName || 'Treat.apk');
+          }
+        } else {
+          liveLinks.classList.add('hidden');
+        }
+      }
+
+      // Reset waitlist form view
+      if (waitlistSection) waitlistSection.classList.remove('hidden');
+      if (waitlistSuccess) waitlistSuccess.classList.add('hidden');
+      if (waitlistInput) waitlistInput.value = '';
+
+      downloadModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      if (waitlistInput) setTimeout(() => waitlistInput.focus(), 150);
+    }
+
+    function closePreLaunchModal() {
+      if (!downloadModal) return;
+      downloadModal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    window.openDownloadModal = openPreLaunchModal;
+    window.closeDownloadModal = closePreLaunchModal;
+
+    if (closeDownloadBtn) closeDownloadBtn.addEventListener('click', closePreLaunchModal);
+    if (downloadBackdrop) downloadBackdrop.addEventListener('click', closePreLaunchModal);
+
+    // Escape key listener for closing modals
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closePreLaunchModal();
+        if (qrModal) qrModal.classList.add('hidden');
+      }
+    });
+
+    // Waitlist Form Submission
+    if (waitlistForm) {
+      waitlistForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        triggerDemoApkDownload();
+        const val = waitlistInput ? waitlistInput.value.trim() : '';
+        if (!val) return;
+
+        try {
+          const list = JSON.parse(localStorage.getItem('treat_waitlist_subscribers') || '[]');
+          list.push({
+            contact: val,
+            date: new Date().toISOString()
+          });
+          localStorage.setItem('treat_waitlist_subscribers', JSON.stringify(list));
+        } catch (err) {
+          console.warn('Could not persist to waitlist:', err);
+        }
+
+        if (waitlistSection) waitlistSection.classList.add('hidden');
+        if (waitlistSuccess) waitlistSuccess.classList.remove('hidden');
+
+        const successMsg = (dlConfig && dlConfig.modalSuccessMsg) ? dlConfig.modalSuccessMsg : "✨ You're on the early invite list! Keep an eye on your inbox.";
+        showToast(successMsg);
+      });
+    }
+
+    // Universal Download Handler for all triggers
+    const handleDownloadTrigger = (e) => {
+      e.preventDefault();
+      const dlConfig = getDownloadConfig();
+      const mode = dlConfig.mode || 'coming_soon';
+
+      if (mode === 'coming_soon' || mode === 'store_and_apk') {
+        openPreLaunchModal();
+      } else if (mode === 'play_store') {
+        if (dlConfig.playStoreUrl && dlConfig.playStoreUrl.startsWith('http')) {
+          window.open(dlConfig.playStoreUrl, '_blank', 'noopener,noreferrer');
+        } else {
+          openPreLaunchModal();
+        }
+      } else if (mode === 'direct_apk') {
+        if (dlConfig.apkDownloadUrl) {
+          const dlLink = document.createElement('a');
+          dlLink.href = dlConfig.apkDownloadUrl;
+          dlLink.setAttribute('download', dlConfig.apkFileName || 'Treat.apk');
+          document.body.appendChild(dlLink);
+          dlLink.click();
+          dlLink.remove();
+          showToast(`Starting Treat APK download (${dlConfig.apkSize || '24.8 MB'})...`);
+        } else {
+          openPreLaunchModal();
+        }
       }
     };
 
-    if (flowBtn) flowBtn.addEventListener('click', handleDownload);
-    if (apkDirect) apkDirect.addEventListener('click', handleDownload);
+    // Attach to all download buttons
+    document.querySelectorAll('.download-trigger-btn, #flow-download-btn').forEach(btn => {
+      btn.addEventListener('click', handleDownloadTrigger);
+    });
 
+    // QR Modal triggers
     if (openQrBtn && qrModal) {
       openQrBtn.addEventListener('click', () => {
         qrModal.classList.remove('hidden');
@@ -62,23 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (closeQrBtn) closeQrBtn.addEventListener('click', closeQr);
     if (qrBackdrop) qrBackdrop.addEventListener('click', closeQr);
-  }
-
-  function triggerDemoApkDownload() {
-    showToast('Preparing Treat for Android (v1.0.4)...');
-    setTimeout(() => {
-      const dummyContent = 'Treat Android APK Release Package - v1.0.4\nEnjoy Funky Foodie Feasts & Squad Deals!';
-      const blob = new Blob([dummyContent], { type: 'application/vnd.android.package-archive' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'Treat-v1.0.4-release.apk';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-      showToast('Treat-v1.0.4-release.apk download started!');
-    }, 600);
   }
 
   function showToast(message) {
@@ -337,6 +476,47 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function setupSecretTitleAdmin(adminInstance) {
+    const titleEl = document.getElementById('hero-headline-text');
+    if (!titleEl) return;
+
+    let clickCount = 0;
+    let clickTimer = null;
+
+    titleEl.addEventListener('click', (e) => {
+      clickCount++;
+      clearTimeout(clickTimer);
+
+      if (clickCount >= 3) {
+        e.preventDefault();
+        e.stopPropagation();
+        clickCount = 0;
+
+        // Easter egg micro-animation on hero headline (delightful subtle spring bounce)
+        titleEl.style.transition = 'transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        titleEl.style.transform = 'scale(1.025)';
+        setTimeout(() => {
+          titleEl.style.transform = '';
+        }, 350);
+
+        // Open Admin Studio (triggers Firebase login modal if unauthenticated, or drawer if authenticated)
+        if (adminInstance && typeof adminInstance.open === 'function') {
+          adminInstance.open();
+        } else if (window.treatApp && window.treatApp.admin) {
+          window.treatApp.admin.open();
+        } else {
+          const modal = document.getElementById('admin-login-modal');
+          if (modal) modal.classList.remove('hidden');
+        }
+        return;
+      }
+
+      clickTimer = setTimeout(() => {
+        clickCount = 0;
+      }, 850);
+    });
+  }
+
   // 8. Setup Interactive 3D Cursor Tilt for Phone Chassis
   setupPhone3DMouseTilt();
 
@@ -515,6 +695,59 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       updateActiveIndicators(closestIdx);
+    }
+  }
+
+  function setupContactAndFooter() {
+    function getContactConfig() {
+      if (window.treatApp && window.treatApp.admin && window.treatApp.admin.config && window.treatApp.admin.config.contact) {
+        return window.treatApp.admin.config.contact;
+      }
+      try {
+        const stored = localStorage.getItem('treat_landing_config_v4');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (parsed && parsed.contact) return parsed.contact;
+        }
+      } catch (e) {}
+      return (window.TREAT_DEFAULT_DATA && window.TREAT_DEFAULT_DATA.contact) ? window.TREAT_DEFAULT_DATA.contact : {};
+    }
+
+    const contact = getContactConfig();
+    if (contact && contact.copyrightText && contact.copyrightText.includes('Funky Foodie Life')) {
+      contact.copyrightText = contact.copyrightText.replace(/\s*Funky Foodie Life\.?/gi, '').trim();
+      try {
+        ['treat_landing_config_v4', 'treat_landing_config'].forEach(k => {
+          const raw = localStorage.getItem(k);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed && parsed.contact) {
+              parsed.contact.copyrightText = contact.copyrightText;
+              localStorage.setItem(k, JSON.stringify(parsed));
+            }
+          }
+        });
+      } catch (e) {}
+    }
+
+    const fbLinks = [document.getElementById('footer-facebook-link'), document.getElementById('team-facebook-btn')];
+    const fbTexts = [document.getElementById('footer-facebook-text'), document.getElementById('team-facebook-text')];
+    const emailLinks = [document.getElementById('footer-email-link'), document.getElementById('team-email-btn')];
+    const emailTexts = [document.getElementById('footer-email-text'), document.getElementById('team-email-text')];
+    const copyrightEl = document.getElementById('footer-copyright-text');
+
+    if (contact.facebookUrl) {
+      fbLinks.forEach(el => { if (el) el.href = contact.facebookUrl; });
+    }
+    if (contact.facebookLabel) {
+      fbTexts.forEach(el => { if (el) el.textContent = contact.facebookLabel; });
+    }
+    if (contact.supportEmail) {
+      emailLinks.forEach(el => { if (el) el.href = `mailto:${contact.supportEmail}`; });
+      emailTexts.forEach(el => { if (el) el.textContent = contact.supportEmail; });
+    }
+    if (contact.copyrightText && copyrightEl) {
+      copyrightEl.textContent = contact.copyrightText;
     }
   }
 });

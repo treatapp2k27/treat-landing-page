@@ -54,13 +54,16 @@ body {
   width: 8px;
   height: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--surface-low);
 }
+
 ::-webkit-scrollbar-thumb {
   background: #DCC8E0;
   border-radius: 9999px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
 }
@@ -125,9 +128,17 @@ body {
 }
 
 @keyframes orbFloat {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(30px, 40px) scale(1.08); }
-  100% { transform: translate(-25px, 20px) scale(0.95); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(30px, 40px) scale(1.08);
+  }
+
+  100% {
+    transform: translate(-25px, 20px) scale(0.95);
+  }
 }
 
 /* ==========================================================================
@@ -150,8 +161,15 @@ body {
 }
 
 @keyframes fadeInFlow {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .flow-dot-pulse {
@@ -183,8 +201,16 @@ body {
 }
 
 @keyframes pingPulse {
-  0% { transform: scale(0.7); opacity: 0.9; }
-  75%, 100% { transform: scale(2.2); opacity: 0; }
+  0% {
+    transform: scale(0.7);
+    opacity: 0.9;
+  }
+
+  75%,
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
 }
 
 .hero-flow-stem {
@@ -222,12 +248,15 @@ body {
     top: -40%;
     opacity: 0;
   }
+
   20% {
     opacity: 1;
   }
+
   80% {
     opacity: 1;
   }
+
   100% {
     top: 105%;
     opacity: 0;
@@ -251,8 +280,15 @@ body {
 }
 
 @keyframes nodeBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(5px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(5px);
+  }
 }
 
 /* ==========================================================================
@@ -285,16 +321,19 @@ body {
   border: 1px solid rgba(224, 64, 160, 0.35);
   color: #D82691;
 }
+
 .flow-step-column[data-step-idx="1"] .flow-step-badge {
   background: #F8F0FF;
   border: 1px solid rgba(124, 82, 170, 0.35);
   color: #6C3FA0;
 }
+
 .flow-step-column[data-step-idx="2"] .flow-step-badge {
   background: #FFF5F2;
   border: 1px solid rgba(255, 107, 74, 0.35);
   color: #EA580C;
 }
+
 .flow-step-column[data-step-idx="3"] .flow-step-badge {
   background: #F0FAFF;
   border: 1px solid rgba(0, 150, 204, 0.35);
@@ -317,14 +356,17 @@ body {
   border: 1.5px solid rgba(224, 64, 160, 0.3);
   color: #E040A0;
 }
+
 .flow-step-column[data-step-idx="1"] .flow-step-icon-circle {
   border: 1.5px solid rgba(124, 82, 170, 0.3);
   color: #7C52AA;
 }
+
 .flow-step-column[data-step-idx="2"] .flow-step-icon-circle {
   border: 1.5px solid rgba(255, 107, 74, 0.3);
   color: #FF6B4A;
 }
+
 .flow-step-column[data-step-idx="3"] .flow-step-icon-circle {
   border: 1.5px solid rgba(0, 150, 204, 0.3);
   color: #0096CC;
@@ -338,6 +380,7 @@ body {
   border-color: #E040A0 !important;
   box-shadow: 0 4px 14px rgba(224, 64, 160, 0.4);
 }
+
 .flow-step-column.active-step[data-step-idx="0"] .flow-step-icon-circle,
 .flow-step-column:hover[data-step-idx="0"] .flow-step-icon-circle {
   background: #E040A0 !important;
@@ -354,6 +397,7 @@ body {
   border-color: #7C52AA !important;
   box-shadow: 0 4px 14px rgba(124, 82, 170, 0.4);
 }
+
 .flow-step-column.active-step[data-step-idx="1"] .flow-step-icon-circle,
 .flow-step-column:hover[data-step-idx="1"] .flow-step-icon-circle {
   background: #7C52AA !important;
@@ -370,6 +414,7 @@ body {
   border-color: #FF6B4A !important;
   box-shadow: 0 4px 14px rgba(255, 107, 74, 0.4);
 }
+
 .flow-step-column.active-step[data-step-idx="2"] .flow-step-icon-circle,
 .flow-step-column:hover[data-step-idx="2"] .flow-step-icon-circle {
   background: #FF6B4A !important;
@@ -386,6 +431,7 @@ body {
   border-color: #0096CC !important;
   box-shadow: 0 4px 14px rgba(0, 150, 204, 0.4);
 }
+
 .flow-step-column.active-step[data-step-idx="3"] .flow-step-icon-circle,
 .flow-step-column:hover[data-step-idx="3"] .flow-step-icon-circle {
   background: #0096CC !important;
@@ -439,7 +485,7 @@ body {
   border-radius: 44px;
   background: #0E0C14;
   border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 
+  box-shadow:
     0 0 0 3px #262132,
     0 0 0 5px rgba(255, 255, 255, 0.14),
     0 26px 70px -12px rgba(46, 26, 40, 0.42),
@@ -464,36 +510,48 @@ body {
 
 /* Continuous 3D Floating Wave Animations */
 @keyframes waveFloat1 {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(-24px) rotate(-2.6deg) scale(1.04);
   }
+
   50% {
     transform: translateY(-38px) rotate(-1.4deg) scale(1.045);
   }
 }
 
 @keyframes waveFloat2 {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(42px) rotate(1.2deg) scale(0.99);
   }
+
   50% {
     transform: translateY(28px) rotate(2.2deg) scale(0.995);
   }
 }
 
 @keyframes waveFloat3 {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(-16px) rotate(-1.0deg) scale(1.02);
   }
+
   50% {
     transform: translateY(-32px) rotate(-0.2deg) scale(1.025);
   }
 }
 
 @keyframes waveFloat4 {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(54px) rotate(2.8deg) scale(0.96);
   }
+
   50% {
     transform: translateY(40px) rotate(3.6deg) scale(0.965);
   }
@@ -525,7 +583,7 @@ body {
   animation-play-state: paused !important;
   transform: translateY(-42px) scale(1.08) rotate(0deg) !important;
   z-index: 35 !important;
-  box-shadow: 
+  box-shadow:
     0 0 0 3.5px #E040A0,
     0 0 0 7.5px rgba(224, 64, 160, 0.42),
     0 35px 95px -10px rgba(224, 64, 160, 0.48),
@@ -644,10 +702,14 @@ body {
 }
 
 @keyframes screenAutoPan {
-  0%, 25% {
+
+  0%,
+  25% {
     object-position: top center;
   }
-  75%, 100% {
+
+  75%,
+  100% {
     object-position: center 75%;
   }
 }
@@ -680,12 +742,15 @@ body {
   transition: color 0.2s ease, transform 0.2s ease;
   cursor: pointer;
 }
+
 .phone-nav-item:hover {
   transform: translateY(-1px);
 }
+
 .phone-nav-item span.material-symbols-outlined {
   font-size: 15px;
 }
+
 .phone-nav-item.active {
   color: #7C52AA;
 }
@@ -736,6 +801,7 @@ body {
   from {
     stroke-dashoffset: 400;
   }
+
   to {
     stroke-dashoffset: 0;
   }
@@ -747,10 +813,13 @@ body {
 }
 
 @keyframes pulseNodeGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     r: 4;
     opacity: 0.9;
   }
+
   50% {
     r: 6.5;
     opacity: 0.4;
@@ -895,28 +964,49 @@ body {
   animation: floatTomato 8s ease-in-out infinite alternate;
   filter: drop-shadow(0 20px 24px rgba(90, 10, 20, 0.35));
 }
+
 @keyframes floatTomato {
-  0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-  50% { transform: translate(6px, -14px) rotate(4deg) scale(1.02); }
-  100% { transform: translate(-8px, 8px) rotate(-3deg) scale(0.98); }
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: translate(6px, -14px) rotate(4deg) scale(1.02);
+  }
+
+  100% {
+    transform: translate(-8px, 8px) rotate(-3deg) scale(0.98);
+  }
 }
 
 .prop-leaf-1 {
   animation: floatLeaf1 9s ease-in-out infinite alternate;
   filter: blur(0.5px) drop-shadow(0 14px 18px rgba(25, 60, 10, 0.28));
 }
+
 @keyframes floatLeaf1 {
-  0% { transform: translate(0, 0) rotate(15deg); }
-  100% { transform: translate(-10px, -18px) rotate(28deg); }
+  0% {
+    transform: translate(0, 0) rotate(15deg);
+  }
+
+  100% {
+    transform: translate(-10px, -18px) rotate(28deg);
+  }
 }
 
 .prop-leaf-2 {
   animation: floatLeaf2 7.5s ease-in-out infinite alternate;
   filter: drop-shadow(0 12px 16px rgba(25, 60, 10, 0.25));
 }
+
 @keyframes floatLeaf2 {
-  0% { transform: translate(0, 0) rotate(-20deg); }
-  100% { transform: translate(8px, -12px) rotate(-10deg); }
+  0% {
+    transform: translate(0, 0) rotate(-20deg);
+  }
+
+  100% {
+    transform: translate(8px, -12px) rotate(-10deg);
+  }
 }
 
 .prop-leaf-3 {
@@ -933,10 +1023,19 @@ body {
   animation: floatHeart 6.5s ease-in-out infinite alternate;
   filter: drop-shadow(0 16px 22px rgba(60, 15, 110, 0.35));
 }
+
 @keyframes floatHeart {
-  0% { transform: translate(0, 0) rotate(8deg) scale(1); }
-  50% { transform: translate(-6px, -16px) rotate(-6deg) scale(1.04); }
-  100% { transform: translate(8px, 10px) rotate(12deg) scale(0.96); }
+  0% {
+    transform: translate(0, 0) rotate(8deg) scale(1);
+  }
+
+  50% {
+    transform: translate(-6px, -16px) rotate(-6deg) scale(1.04);
+  }
+
+  100% {
+    transform: translate(8px, 10px) rotate(12deg) scale(0.96);
+  }
 }
 
 /* ==========================================================================
@@ -950,8 +1049,13 @@ body {
 }
 
 @keyframes splineDashTravel {
-  from { stroke-dashoffset: 1000; }
-  to { stroke-dashoffset: 0; }
+  from {
+    stroke-dashoffset: 1000;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 /* Floating Gourmet Food Dish */
@@ -960,9 +1064,17 @@ body {
 }
 
 @keyframes floatFoodBowl {
-  0% { transform: translateY(0) rotate(0deg) scale(1); }
-  50% { transform: translateY(-12px) rotate(2.5deg) scale(1.02); }
-  100% { transform: translateY(8px) rotate(-1.5deg) scale(0.98); }
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(2.5deg) scale(1.02);
+  }
+
+  100% {
+    transform: translateY(8px) rotate(-1.5deg) scale(0.98);
+  }
 }
 
 /* 3D Flow Phone Chassis & Wrappers */
@@ -977,7 +1089,7 @@ body {
   border-radius: 42px;
   background: linear-gradient(155deg, #241D30 0%, #0D0A14 45%, #191422 100%);
   border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 
+  box-shadow:
     0 0 0 1px #0A0812,
     0 0 0 2.5px #1F1929,
     0 1px 3px rgba(0, 0, 0, 0.5),
@@ -1003,6 +1115,7 @@ body {
   box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.22);
   pointer-events: none;
 }
+
 .phone-hw-action {
   left: -3px;
   top: 56px;
@@ -1010,6 +1123,7 @@ body {
   height: 14px;
   border-radius: 2px 0 0 2px;
 }
+
 .phone-hw-vol-up {
   left: -3px;
   top: 78px;
@@ -1017,6 +1131,7 @@ body {
   height: 24px;
   border-radius: 2px 0 0 2px;
 }
+
 .phone-hw-vol-down {
   left: -3px;
   top: 110px;
@@ -1024,6 +1139,7 @@ body {
   height: 24px;
   border-radius: 2px 0 0 2px;
 }
+
 .phone-hw-power {
   right: -3px;
   top: 86px;
@@ -1036,11 +1152,13 @@ body {
 .phone-hero-tilt {
   transform: perspective(1400px) rotateY(-8deg) rotateZ(3deg) translateY(0);
 }
+
 .phone-hero-tilt:hover {
   transform: perspective(1400px) rotateY(0deg) rotateZ(0deg) translateY(-14px) scale(1.03) !important;
 }
+
 .phone-hero-tilt:hover .flow-phone-chassis {
-  box-shadow: 
+  box-shadow:
     0 0 0 3.5px #E040A0,
     0 0 0 7px rgba(224, 64, 160, 0.3),
     0 40px 95px rgba(124, 82, 170, 0.45) !important;
@@ -1049,11 +1167,13 @@ body {
 .phone-step-tilt-1 {
   transform: perspective(1400px) rotateY(-6deg) rotateZ(2.5deg) translateY(0);
 }
+
 .phone-step-tilt-1:hover {
   transform: perspective(1400px) rotateY(0deg) rotateZ(0deg) translateY(-14px) scale(1.03) !important;
 }
+
 .phone-step-tilt-1:hover .flow-phone-chassis {
-  box-shadow: 
+  box-shadow:
     0 0 0 3.5px #7C52AA,
     0 0 0 7px rgba(124, 82, 170, 0.3),
     0 40px 95px rgba(124, 82, 170, 0.45) !important;
@@ -1062,11 +1182,13 @@ body {
 .phone-step-tilt-2 {
   transform: perspective(1400px) rotateY(7deg) rotateZ(-2.5deg) translateY(0);
 }
+
 .phone-step-tilt-2:hover {
   transform: perspective(1400px) rotateY(0deg) rotateZ(0deg) translateY(-14px) scale(1.03) !important;
 }
+
 .phone-step-tilt-2:hover .flow-phone-chassis {
-  box-shadow: 
+  box-shadow:
     0 0 0 3.5px #2563EB,
     0 0 0 7px rgba(37, 99, 235, 0.3),
     0 40px 95px rgba(37, 99, 235, 0.45) !important;
@@ -1075,11 +1197,13 @@ body {
 .phone-step-tilt-3 {
   transform: perspective(1400px) rotateY(-4deg) rotateZ(1.5deg) translateY(0);
 }
+
 .phone-step-tilt-3:hover {
   transform: perspective(1400px) rotateY(0deg) rotateZ(0deg) translateY(-14px) scale(1.03) !important;
 }
+
 .phone-step-tilt-3:hover .flow-phone-chassis {
-  box-shadow: 
+  box-shadow:
     0 0 0 3.5px #FF6B4A,
     0 0 0 7px rgba(255, 107, 74, 0.3),
     0 40px 95px rgba(255, 107, 74, 0.45) !important;
@@ -1088,17 +1212,20 @@ body {
 .phone-step-tilt-4 {
   transform: perspective(1400px) rotateY(-5deg) rotateZ(2.5deg) translateY(0);
 }
+
 .phone-step-tilt-4:hover {
   transform: perspective(1400px) rotateY(0deg) rotateZ(0deg) translateY(-14px) scale(1.03) !important;
 }
+
 .phone-step-tilt-4:hover .flow-phone-chassis {
-  box-shadow: 
+  box-shadow:
     0 0 0 3.5px #0096CC,
     0 0 0 7px rgba(0, 150, 204, 0.3),
     0 40px 95px rgba(0, 150, 204, 0.45) !important;
 }
 
 @media (max-width: 1024px) {
+
   .phone-hero-tilt,
   .phone-step-tilt-1,
   .phone-step-tilt-2,
@@ -1141,12 +1268,14 @@ body {
   transform: perspective(1200px) rotateY(5.5deg) rotateZ(-1.2deg) translateY(0);
   transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+
 .phone-line-tilt-1:hover {
   transform: perspective(1200px) rotateY(0deg) rotateZ(0deg) translateY(-14px) scale(1.035) !important;
   z-index: 30;
 }
+
 .phone-line-tilt-1:hover .flow-phone-chassis {
-  box-shadow: 
+  box-shadow:
     0 0 0 3px #E040A0,
     0 0 0 7px rgba(224, 64, 160, 0.3),
     0 35px 85px -10px rgba(224, 64, 160, 0.42) !important;
@@ -1156,12 +1285,14 @@ body {
   transform: perspective(1200px) rotateY(2.5deg) rotateZ(-0.6deg) translateY(-6px);
   transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+
 .phone-line-tilt-2:hover {
   transform: perspective(1200px) rotateY(0deg) rotateZ(0deg) translateY(-18px) scale(1.035) !important;
   z-index: 30;
 }
+
 .phone-line-tilt-2:hover .flow-phone-chassis {
-  box-shadow: 
+  box-shadow:
     0 0 0 3px #2563EB,
     0 0 0 7px rgba(37, 99, 235, 0.3),
     0 35px 85px -10px rgba(37, 99, 235, 0.42) !important;
@@ -1171,12 +1302,14 @@ body {
   transform: perspective(1200px) rotateY(-2.5deg) rotateZ(0.6deg) translateY(-6px);
   transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+
 .phone-line-tilt-3:hover {
   transform: perspective(1200px) rotateY(0deg) rotateZ(0deg) translateY(-18px) scale(1.035) !important;
   z-index: 30;
 }
+
 .phone-line-tilt-3:hover .flow-phone-chassis {
-  box-shadow: 
+  box-shadow:
     0 0 0 3px #FF6B4A,
     0 0 0 7px rgba(255, 107, 74, 0.3),
     0 35px 85px -10px rgba(255, 107, 74, 0.42) !important;
@@ -1186,12 +1319,14 @@ body {
   transform: perspective(1200px) rotateY(-5.5deg) rotateZ(1.2deg) translateY(0);
   transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+
 .phone-line-tilt-4:hover {
   transform: perspective(1200px) rotateY(0deg) rotateZ(0deg) translateY(-14px) scale(1.035) !important;
   z-index: 30;
 }
+
 .phone-line-tilt-4:hover .flow-phone-chassis {
-  box-shadow: 
+  box-shadow:
     0 0 0 3px #0096CC,
     0 0 0 7px rgba(0, 150, 204, 0.3),
     0 35px 85px -10px rgba(0, 150, 204, 0.42) !important;
@@ -1202,8 +1337,9 @@ body {
   transform: perspective(1200px) rotateY(0deg) rotateZ(0deg) translateY(-14px) scale(1.035);
   z-index: 30;
 }
+
 .flow-card-item:hover .phone-line-tilt-1 .flow-phone-chassis {
-  box-shadow: 
+  box-shadow:
     0 0 0 3px #E040A0,
     0 0 0 7px rgba(224, 64, 160, 0.3),
     0 35px 85px -10px rgba(224, 64, 160, 0.42);
@@ -1213,8 +1349,9 @@ body {
   transform: perspective(1200px) rotateY(0deg) rotateZ(0deg) translateY(-18px) scale(1.035);
   z-index: 30;
 }
+
 .flow-card-item:hover .phone-line-tilt-2 .flow-phone-chassis {
-  box-shadow: 
+  box-shadow:
     0 0 0 3px #2563EB,
     0 0 0 7px rgba(37, 99, 235, 0.3),
     0 35px 85px -10px rgba(37, 99, 235, 0.42);
@@ -1224,8 +1361,9 @@ body {
   transform: perspective(1200px) rotateY(0deg) rotateZ(0deg) translateY(-18px) scale(1.035);
   z-index: 30;
 }
+
 .flow-card-item:hover .phone-line-tilt-3 .flow-phone-chassis {
-  box-shadow: 
+  box-shadow:
     0 0 0 3px #FF6B4A,
     0 0 0 7px rgba(255, 107, 74, 0.3),
     0 35px 85px -10px rgba(255, 107, 74, 0.42);
@@ -1235,8 +1373,9 @@ body {
   transform: perspective(1200px) rotateY(0deg) rotateZ(0deg) translateY(-14px) scale(1.035);
   z-index: 30;
 }
+
 .flow-card-item:hover .phone-line-tilt-4 .flow-phone-chassis {
-  box-shadow: 
+  box-shadow:
     0 0 0 3px #0096CC,
     0 0 0 7px rgba(0, 150, 204, 0.3),
     0 35px 85px -10px rgba(0, 150, 204, 0.42);
@@ -1249,6 +1388,7 @@ body {
   0% {
     stroke-dashoffset: 240;
   }
+
   100% {
     stroke-dashoffset: 0;
   }
@@ -1266,14 +1406,18 @@ body {
   animation: gentleFoodBowlFloat 7s ease-in-out infinite;
   transition: transform 0.4s ease;
 }
+
 .hero-food-bowl-wrapper:hover {
   transform: scale(1.08) rotate(3deg);
 }
 
 @keyframes gentleFoodBowlFloat {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px) rotate(0deg);
   }
+
   50% {
     transform: translateY(-10px) rotate(1.5deg);
   }
@@ -1282,10 +1426,14 @@ body {
 .prop-heart {
   animation: propHeartFloat 5s ease-in-out infinite;
 }
+
 @keyframes propHeartFloat {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0) rotate(-6deg);
   }
+
   50% {
     transform: translateY(-8px) rotate(4deg);
   }
@@ -1294,10 +1442,14 @@ body {
 .prop-tomato {
   animation: propTomatoFloat 6.5s ease-in-out infinite 0.7s;
 }
+
 @keyframes propTomatoFloat {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0) rotate(5deg);
   }
+
   50% {
     transform: translateY(-12px) rotate(-3deg);
   }
@@ -1306,10 +1458,14 @@ body {
 .prop-leaf-1 {
   animation: propLeafFloat 5.5s ease-in-out infinite 1.2s;
 }
+
 @keyframes propLeafFloat {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0) rotate(-12deg);
   }
+
   50% {
     transform: translateY(-7px) rotate(8deg);
   }
@@ -1327,6 +1483,7 @@ body {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+
 .screen-scroll-container::-webkit-scrollbar {
   display: none;
 }
@@ -1336,6 +1493,7 @@ body {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }
@@ -1347,11 +1505,13 @@ body {
   cursor: pointer;
   color: #604868;
 }
+
 .mobile-step-tab.active {
   background: #181024 !important;
   color: #FFFFFF !important;
   box-shadow: 0 2px 8px rgba(24, 16, 36, 0.22);
 }
+
 .mobile-flow-dot {
   border: none;
   cursor: pointer;
@@ -1360,6 +1520,7 @@ body {
 
 /* Mobile Touch & Layout Optimizations */
 @media (max-width: 1024px) {
+
   .phone-line-tilt-1,
   .phone-line-tilt-2,
   .phone-line-tilt-3,
@@ -1376,7 +1537,7 @@ body {
   }
 
   .flow-card-item:hover .flow-phone-chassis {
-    box-shadow: 
+    box-shadow:
       0 0 0 1px #0A0812,
       0 0 0 2.5px #1F1929,
       0 1px 3px rgba(0, 0, 0, 0.5),
@@ -1396,21 +1557,36 @@ body {
     opacity: 0;
     transform: translateY(-8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
 #mobile-nav-dropdown:not(.hidden) {
   animation: mobileNavFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Admin Login Modal Animations */
 @keyframes adminShake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-8px); }
-  40%, 80% { transform: translateX(8px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20%,
+  60% {
+    transform: translateX(-8px);
+  }
+
+  40%,
+  80% {
+    transform: translateX(8px);
+  }
 }
+
 .shake-error {
   animation: adminShake 0.45s ease-in-out;
 }
@@ -1418,11 +1594,13 @@ body {
 #admin-login-modal:not(.hidden) #admin-login-card {
   animation: adminModalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
 @keyframes adminModalPop {
   0% {
     opacity: 0;
     transform: scale(0.92) translateY(10px);
   }
+
   100% {
     opacity: 1;
     transform: scale(1) translateY(0);
@@ -1435,7 +1613,7 @@ body {
   border-radius: 46px;
   background: linear-gradient(155deg, #1F1929 0%, #0D0A14 50%, #191422 100%);
   border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 
+  box-shadow:
     0 0 0 1px #0A0812,
     0 0 0 3px #241D30,
     0 2px 5px rgba(0, 0, 0, 0.4),
@@ -1453,10 +1631,13 @@ body {
   transform: perspective(1400px) rotateY(-7deg) rotateX(3deg) rotateZ(1deg);
   transition: transform 0.4s ease-out;
 }
+
 .hero-flagship-tilt:hover {
   transform: perspective(1400px) rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(1.02);
 }
+
 @media (max-width: 1024px) {
+
   .hero-flagship-tilt,
   .hero-flagship-tilt:hover {
     transform: none !important;
@@ -1480,4 +1661,188 @@ body {
   flex-shrink: 0;
 }
 
+/* =========================================================================
+   STITCH SCREEN ANIMATIONS: App Splash - Jumping Along Curve Path
+   Project: 12592521860428773399 | Screen: 7bb1dada50ec4261861b4a57de4b3b8a
+   ========================================================================= */
 
+/* Logo Gentle Breathing / Pulse Blink Glow */
+@keyframes logoGlowBlink {
+  0%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 8px 20px rgba(124, 82, 170, 0.38));
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.42;
+    filter: drop-shadow(0 3px 8px rgba(124, 82, 170, 0.15));
+    transform: scale(0.975);
+  }
+}
+
+.animate-logo-pulse-blink {
+  animation: logoGlowBlink 2.4s ease-in-out infinite;
+}
+
+/* Ambient Floating Foodie Icons Drift */
+@keyframes subtleDrift {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(5deg); }
+}
+
+.animate-drift {
+  animation: subtleDrift 5s ease-in-out infinite;
+}
+
+/* Progress Stroke Drawing from Start Pin to Restaurant Door */
+@keyframes lineFill {
+  0% {
+    stroke-dashoffset: 240;
+  }
+  72%, 88% {
+    stroke-dashoffset: 0;
+  }
+  96%, 100% {
+    stroke-dashoffset: 240;
+  }
+}
+
+.anim-trail-progress {
+  stroke-dasharray: 240;
+  animation: lineFill 4.8s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+
+/* Character Traversing along Curve Path */
+@keyframes characterTravel {
+  0% {
+    transform: translate(16px, 46px);
+    opacity: 0;
+  }
+  5% {
+    transform: translate(22px, 46px);
+    opacity: 1;
+  }
+  18% {
+    transform: translate(62px, 32px);
+  }
+  35% {
+    transform: translate(114px, 40px);
+  }
+  52% {
+    transform: translate(168px, 48px);
+  }
+  70% {
+    transform: translate(218px, 42px);
+    opacity: 1;
+  }
+  76% {
+    transform: translate(234px, 42px) scale(0.85);
+    opacity: 1;
+  }
+  84% {
+    transform: translate(242px, 42px) scale(0.35);
+    opacity: 0.8;
+  }
+  88% {
+    transform: translate(246px, 42px) scale(0.1);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(16px, 46px) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes characterHop {
+  0%, 100% {
+    transform: translateY(0px) scale(1, 0.92);
+  }
+  45% {
+    transform: translateY(-16px) scale(0.95, 1.08) rotate(4deg);
+  }
+  70% {
+    transform: translateY(-12px) scale(1, 1);
+  }
+  90% {
+    transform: translateY(1px) scale(1.04, 0.94);
+  }
+}
+
+.anim-person-travel {
+  animation: characterTravel 4.8s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+
+.anim-person-bouncy-hop {
+  animation: characterHop 0.48s ease-in-out infinite;
+}
+
+/* Magnifying Glass Scanning Animation */
+@keyframes glassInspect {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(15deg); }
+}
+
+.anim-glass-inspect {
+  animation: glassInspect 0.96s ease-in-out infinite;
+  transform-origin: 14px 14px;
+}
+
+/* Welcoming Restaurant Door Swing Open */
+@keyframes doorOpen {
+  0%, 68% {
+    transform: perspective(250px) rotateY(0deg);
+    transform-origin: left center;
+  }
+  76%, 88% {
+    transform: perspective(250px) rotateY(-70deg);
+    transform-origin: left center;
+  }
+  96%, 100% {
+    transform: perspective(250px) rotateY(0deg);
+    transform-origin: left center;
+  }
+}
+
+.anim-door-swing {
+  animation: doorOpen 4.8s ease-in-out infinite;
+}
+
+/* Welcoming Interior Golden Warm Glow Sparkle */
+@keyframes doorGlow {
+  0%, 68% {
+    opacity: 0.15;
+    filter: drop-shadow(0 0 2px rgba(255, 183, 3, 0.2));
+  }
+  74%, 88% {
+    opacity: 1;
+    filter: drop-shadow(0 0 16px rgba(255, 183, 3, 0.95));
+  }
+  96%, 100% {
+    opacity: 0.15;
+    filter: drop-shadow(0 0 2px rgba(255, 183, 3, 0.2));
+  }
+}
+
+.anim-door-glow {
+  animation: doorGlow 4.8s ease-in-out infinite;
+}
+
+/* Welcoming Sparkles near Shop */
+@keyframes shopSparkle {
+  0%, 68% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  75%, 86% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  94%, 100% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+
+.anim-shop-sparkle {
+  animation: shopSparkle 4.8s ease-in-out infinite;
+}

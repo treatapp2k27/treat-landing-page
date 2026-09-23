@@ -13,6 +13,16 @@ const TREAT_DEFAULT_DATA = {
     logoPath: "assets/images/treat_bubble_logo.png"
   },
   download: {
+    mode: "coming_soon", // 'coming_soon' | 'play_store' | 'direct_apk' | 'store_and_apk'
+    modalBadge: "DROPPING SOON • PRIVATE PREVIEW",
+    modalTitle: "Something delicious is in the works.",
+    modalSubtitle: "We're quietly perfecting a whole new way to feast with your squad. Drop your contact below to get an invite before doors open to the public.",
+    modalNotifyBtnText: "Request Early Invite ✨",
+    modalSuccessMsg: "You're on the invite list! Keep an eye on your inbox.",
+    modalFooterNote: "Invite-only initial batch. No spam, just first access.",
+    progressPercent: 85,
+    progressLabel: "Launch Readiness",
+    progressSublabel: "Private Beta & Kitchen Floor Sync",
     ctaText: "Download Treat",
     ctaSubtext: "Your next great meal is already waiting.",
     apkFileName: "Treat-v1.0.4-release.apk",
@@ -21,8 +31,8 @@ const TREAT_DEFAULT_DATA = {
     apkDownloadUrl: "assets/downloads/Treat-v1.0.4-release.apk",
     playStoreUrl: "https://play.google.com/store/apps/details?id=com.treat.app",
     webDemoUrl: "http://localhost:8080",
-    releaseDate: "September 2026",
-    trustBadge: "100% Virus-Free APK • 24.8 MB • Android 9.0+ • Instant Access"
+    releaseDate: "Launching Soon 2026",
+    trustBadge: "100% Virus-Free • Android & iOS • Instant Table Sync"
   },
   // 4 Primary Flow Steps with Appetite-Focused Copy
   flowSteps: [
@@ -106,6 +116,41 @@ const TREAT_DEFAULT_DATA = {
       rating: 5
     }
   ],
+  team: [
+    {
+      id: "member-1",
+      name: "Eftakhar Amin Sakib",
+      role: "Lead Full-Stack & Mobile Engineer",
+      bio: "Architecting real-time mobile sync, interactive 3D UI, and clean cross-platform infrastructure.",
+      avatar: "https://github.com/EFTAKHAR-AMIN-SAKIB.png",
+      portfolioUrl: "https://github.com/EFTAKHAR-AMIN-SAKIB",
+      githubUrl: "https://github.com/EFTAKHAR-AMIN-SAKIB",
+      linkedinUrl: "https://www.linkedin.com/in/eftakhar-amin-sakib/",
+      location: "Dhaka, Bangladesh"
+    },
+    {
+      id: "member-2",
+      name: "Ayesha Rahman",
+      role: "Product & UI/UX Designer",
+      bio: "Crafting playful human-centered foodie flows, squad budgeting systems, and delightful visual design.",
+      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
+      portfolioUrl: "https://dribbble.com",
+      githubUrl: "https://github.com",
+      linkedinUrl: "https://linkedin.com",
+      location: "Dhaka, Bangladesh"
+    },
+    {
+      id: "member-3",
+      name: "Tanvir Ahmed",
+      role: "Backend & Systems Engineer",
+      bio: "Building low-latency restaurant kitchen sync, instantaneous 2-minute table locks, and resilient APIs.",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+      portfolioUrl: "https://github.com",
+      githubUrl: "https://github.com",
+      linkedinUrl: "https://linkedin.com",
+      location: "Dhaka, Bangladesh"
+    }
+  ],
   developer: {
     name: "Eftakhar Amin Sakib",
     role: "Lead Full-Stack & Mobile Software Engineer",
@@ -113,9 +158,17 @@ const TREAT_DEFAULT_DATA = {
     status: "Active Engineering • Dhaka",
     bio: "Passionate about engineering delightful, high-performance digital products. Focused on clean architecture, interactive 3D micro-interactions, and human-centered design that brings foodies and local kitchens together.",
     avatar: "https://github.com/EFTAKHAR-AMIN-SAKIB.png",
+    portfolioUrl: "https://github.com/EFTAKHAR-AMIN-SAKIB",
     githubUrl: "https://github.com/EFTAKHAR-AMIN-SAKIB",
+    linkedinUrl: "https://www.linkedin.com/in/eftakhar-amin-sakib/",
     repoUrl: "https://github.com/EFTAKHAR-AMIN-SAKIB/treat-landing-page",
     skills: ["Flutter & Android", "Tailwind CSS", "Node.js & APIs", "Interactive 3D UI", "Realtime Sync", "UI/UX Architecture"]
+  },
+  contact: {
+    facebookUrl: "https://facebook.com/treat.official",
+    facebookLabel: "Treat Official",
+    supportEmail: "support.treat@gmail.com",
+    copyrightText: "© 2026 Treat Inc."
   }
 };
 

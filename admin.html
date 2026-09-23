@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Treat - Admin Studio Dashboard</title>
-  
+
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/images/treat_bubble_logo.png">
 
   <!-- Google Fonts: Plus Jakarta Sans, DM Sans, Caveat -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap"
+    rel="stylesheet">
 
   <!-- Google Material Symbols -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -53,10 +57,12 @@
       color: #181024;
       font-family: 'DM Sans', sans-serif;
     }
+
     .material-symbols-outlined {
       font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
       vertical-align: middle;
     }
+
     .sidebar-tab-btn {
       display: flex;
       align-items: center;
@@ -70,15 +76,18 @@
       transition: all 0.2s ease;
       text-align: left;
     }
+
     .sidebar-tab-btn:hover {
       background-color: #F2E8FA;
       color: #181024;
     }
+
     .sidebar-tab-btn.active {
       background: linear-gradient(135deg, #E040A0 0%, #9357E8 100%);
       color: #FFFFFF;
       box-shadow: 0 4px 16px rgba(224, 64, 160, 0.25);
     }
+
     .admin-card {
       background-color: #FFFFFF;
       border: 1px solid #E8DCF2;
@@ -86,9 +95,11 @@
       box-shadow: 0 4px 20px rgba(124, 82, 170, 0.05);
       transition: box-shadow 0.2s ease;
     }
+
     .admin-card:hover {
       box-shadow: 0 8px 30px rgba(124, 82, 170, 0.09);
     }
+
     .form-input {
       width: 100%;
       padding: 10px 14px;
@@ -101,11 +112,13 @@
       transition: all 0.2s ease;
       outline: none;
     }
+
     .form-input:focus {
       background-color: #FFFFFF;
       border-color: #E040A0;
       box-shadow: 0 0 0 3px rgba(224, 64, 160, 0.15);
     }
+
     .form-label {
       display: block;
       font-size: 11px;
@@ -115,76 +128,200 @@
       color: #7C52AA;
       margin-bottom: 6px;
     }
+
     @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-8px); }
-      40%, 80% { transform: translateX(8px); }
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      20%,
+      60% {
+        transform: translateX(-8px);
+      }
+
+      40%,
+      80% {
+        transform: translateX(8px);
+      }
     }
+
     .shake-error {
       animation: shake 0.4s ease-in-out;
     }
   </style>
 </head>
+
 <body class="min-h-screen flex flex-col selection:bg-primary selection:text-white">
 
   <!-- =========================================================================
-       1. PASSKEY AUTHENTICATION OVERLAY (133162029)
+       1. FIREBASE AUTHENTICATION OVERLAY
        ========================================================================= -->
-  <div id="admin-login-screen" class="fixed inset-0 z-[200] bg-dark/70 backdrop-blur-md flex items-center justify-center p-4">
-    <div id="admin-login-card" class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border border-outline-soft flex flex-col items-center text-center">
-      
-      <!-- Brand Lock Icon -->
-      <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-primary to-secondary text-white flex items-center justify-center shadow-lg shadow-primary/25 mb-4">
-        <span class="material-symbols-outlined text-[32px]">shield_lock</span>
+  <div id="admin-login-screen"
+    class="fixed inset-0 z-[200] bg-dark/70 backdrop-blur-md flex items-center justify-center p-4">
+    <div id="admin-login-card"
+      class="bg-white rounded-3xl p-7 sm:p-8 max-w-md w-full shadow-2xl border border-outline-soft flex flex-col items-center text-center relative transition-all">
+
+      <!-- Custom Treat Security Shield Badge -->
+      <div class="relative flex items-center justify-center mb-5 group cursor-default select-none" id="admin-security-shield">
+        <!-- Ambient Neon Aura -->
+        <div class="absolute -inset-2 bg-gradient-to-tr from-primary/35 via-secondary/25 to-indigo-500/20 rounded-full blur-xl opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+
+        <!-- Shield Chassis -->
+        <div class="relative w-[84px] h-[98px] sm:w-[92px] sm:h-[108px] flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+          <svg viewBox="0 0 100 118" class="w-full h-full filter drop-shadow-[0_10px_22px_rgba(224,64,160,0.32)]" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <!-- Background Shield Gradient: Treat Berry to Electric Violet to Deep Indigo -->
+              <linearGradient id="adminShieldBg" x1="15%" y1="0%" x2="85%" y2="100%">
+                <stop offset="0%" stop-color="#FF3A9E"/>
+                <stop offset="48%" stop-color="#9357E8"/>
+                <stop offset="100%" stop-color="#4F46E5"/>
+              </linearGradient>
+
+              <!-- Glossy High-Craft Border Gradient -->
+              <linearGradient id="adminShieldBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFC2E8"/>
+                <stop offset="40%" stop-color="#D8B4FE"/>
+                <stop offset="100%" stop-color="#818CF8"/>
+              </linearGradient>
+
+              <!-- Gloss Highlight Overlay -->
+              <linearGradient id="adminShieldGloss" x1="50%" y1="0%" x2="50%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.45"/>
+                <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.10"/>
+                <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+              </linearGradient>
+
+              <!-- Soft Inner Shield Core Glow -->
+              <radialGradient id="adminShieldGlow" cx="50%" cy="40%" r="45%">
+                <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+
+            <!-- Outer Shield Silhouette -->
+            <path d="M 50 4 C 74 4, 94 15, 94 36 C 94 72, 68 100, 50 114 C 32 100, 6 72, 6 36 C 6 15, 26 4, 50 4 Z"
+                  fill="url(#adminShieldBg)"
+                  stroke="url(#adminShieldBorder)"
+                  stroke-width="3"
+                  stroke-linejoin="round" />
+
+            <!-- Inner Soft Radial Light Core -->
+            <path d="M 50 6 C 72 6, 91 16, 91 36 C 91 70, 66 97, 50 110 C 34 97, 9 70, 9 36 C 9 16, 28 6, 50 6 Z"
+                  fill="url(#adminShieldGlow)" />
+
+            <!-- Inner Delicate Dashed Security Track -->
+            <path d="M 50 11 C 69 11, 85 20, 85 37 C 85 66, 63 90, 50 102 C 37 90, 15 66, 15 37 C 15 20, 31 11, 50 11 Z"
+                  fill="none"
+                  stroke="rgba(255, 255, 255, 0.32)"
+                  stroke-width="1.2"
+                  stroke-dasharray="3 3" />
+
+            <!-- Upper Specular Gloss Reflection -->
+            <path d="M 50 6 C 71 6, 88 15, 90 34 C 74 44, 26 44, 10 34 C 12 15, 29 6, 50 6 Z"
+                  fill="url(#adminShieldGloss)" />
+          </svg>
+
+          <!-- Centered Treat Bubble Logo Inside Shield -->
+          <div class="absolute inset-0 flex items-center justify-center pb-2.5 sm:pb-3 pointer-events-none">
+            <img src="assets/images/treat_bubble_logo.png"
+                 alt="Treat Admin Security"
+                 draggable="false"
+                 class="w-14 sm:w-16 h-auto object-contain filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.38)]" />
+          </div>
+
+          <!-- Active Firebase Security Pulse Beacon -->
+          <span class="absolute -top-1 -right-1 flex h-4 w-4" title="Firebase 256-bit Encrypted Session">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 border-2 border-white shadow-sm"></span>
+          </span>
+        </div>
       </div>
 
-      <h1 class="font-headline font-black text-2xl text-dark tracking-tight">Admin Studio Dashboard</h1>
-      <p class="text-xs text-on-surface-variant font-medium mt-1.5 mb-6">
-        Enter master passkey to unlock full page management for all sections, 3D phones, and content.
+      <h1 class="font-headline font-black text-2xl text-dark tracking-tight">Admin Studio Login</h1>
+      <p class="text-xs text-on-surface-variant font-medium mt-1 mb-5">
+        Sign in with your verified Treat admin credentials to manage content, 3D phones, and launch settings.
       </p>
 
-      <form id="admin-login-form" class="w-full flex flex-col gap-3.5" onsubmit="return false;">
+      <!-- Feedback Messages -->
+      <div id="admin-login-error"
+        class="hidden w-full text-xs font-bold text-rose-600 bg-rose-50 border border-rose-200 py-2.5 px-3.5 rounded-xl flex items-center gap-2 text-left mb-3">
+        <span class="material-symbols-outlined text-[18px] shrink-0 text-rose-600">error</span>
+        <span id="admin-login-error-text" class="flex-1 leading-snug">Invalid credentials. Access denied.</span>
+      </div>
+
+      <div id="admin-login-notice"
+        class="hidden w-full text-xs font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 py-2.5 px-3.5 rounded-xl flex items-center gap-2 text-left mb-3">
+        <span class="material-symbols-outlined text-[18px] shrink-0 text-emerald-600">check_circle</span>
+        <span id="admin-login-notice-text" class="flex-1 leading-snug">Password reset link sent! Check your inbox.</span>
+      </div>
+
+      <form id="admin-login-form" class="w-full flex flex-col gap-3" onsubmit="return false;">
+        <!-- Email Input -->
         <div class="relative w-full">
-          <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-[20px]">key</span>
-          <input 
-            type="password" 
-            id="admin-passkey-input" 
-            placeholder="Enter passkey (133162029)" 
-            class="form-input pl-11 pr-11 py-3 text-sm"
-            autocomplete="current-password"
-            required
-          >
-          <button 
-            type="button" 
-            id="admin-passkey-toggle" 
+          <span
+            class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-[20px]">mail</span>
+          <input type="email" id="admin-email-input" placeholder="Admin email (e.g. founder@treat.com)"
+            class="form-input pl-11 pr-4 py-3 text-xs sm:text-sm" autocomplete="username" required>
+        </div>
+
+        <!-- Password Input -->
+        <div class="relative w-full">
+          <span
+            class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-[20px]">lock</span>
+          <input type="password" id="admin-password-input" placeholder="Admin password"
+            class="form-input pl-11 pr-11 py-3 text-xs sm:text-sm" autocomplete="current-password" required>
+          <button type="button" id="admin-password-toggle"
             class="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-dark transition-colors"
-            title="Toggle visibility"
-          >
+            title="Toggle password visibility">
             <span id="pass-toggle-icon" class="material-symbols-outlined text-[20px]">visibility</span>
           </button>
         </div>
 
-        <div id="admin-login-error" class="hidden text-xs font-bold text-rose-600 bg-rose-50 border border-rose-200 py-2 px-3 rounded-xl flex items-center justify-center gap-1.5">
-          <span class="material-symbols-outlined text-[16px]">error</span>
-          <span id="admin-login-error-text">Incorrect passkey. Access denied.</span>
+        <!-- Forgot Password Link -->
+        <div class="flex items-center justify-end -mt-1">
+          <button type="button" id="admin-forgot-password-btn"
+            class="text-[11px] font-bold text-primary hover:text-primary-dark transition-colors">
+            Forgot password?
+          </button>
         </div>
 
-        <button 
-          type="submit" 
-          id="admin-login-submit" 
-          class="w-full py-3.5 rounded-full bg-dark hover:bg-dark-card text-white text-xs font-extrabold uppercase tracking-wider shadow-md hover:shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 mt-2"
-        >
-          <span class="material-symbols-outlined text-[18px]">lock_open</span>
-          <span>Unlock Admin Dashboard</span>
+        <!-- Submit Button -->
+        <button type="submit" id="admin-login-submit"
+          class="w-full py-3.5 rounded-full bg-dark hover:bg-dark-card text-white text-xs font-extrabold uppercase tracking-wider shadow-md hover:shadow-lg active:scale-98 transition-all flex items-center justify-center gap-2 mt-1">
+          <span id="admin-login-spinner" class="hidden w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+          <span class="material-symbols-outlined text-[18px]" id="admin-login-lock-icon">lock_open</span>
+          <span id="admin-login-btn-text">Sign In to Dashboard</span>
         </button>
       </form>
 
-      <div class="mt-6 pt-4 border-t border-outline-soft w-full flex items-center justify-between text-[11px] font-bold text-gray-500">
+      <!-- Divider -->
+      <div class="relative w-full my-4 flex items-center justify-center">
+        <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-outline-soft"></div></div>
+        <span class="relative px-3 bg-white text-[11px] font-bold text-gray-400 uppercase tracking-wider">or</span>
+      </div>
+
+      <!-- Google Sign-In Button -->
+      <button type="button" id="admin-google-login-btn"
+        class="w-full py-2.5 px-4 rounded-full bg-white hover:bg-gray-50 text-dark border border-outline-soft text-xs font-extrabold flex items-center justify-center gap-2.5 shadow-2xs hover:shadow-xs active:scale-98 transition-all">
+        <svg class="w-4 h-4" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+        </svg>
+        <span>Sign in with Google</span>
+      </button>
+
+      <!-- Bottom Info -->
+      <div
+        class="mt-5 pt-3 border-t border-outline-soft w-full flex items-center justify-between text-[11px] font-bold text-gray-500">
         <a href="index.html" class="hover:text-primary transition-colors flex items-center gap-1">
           <span class="material-symbols-outlined text-[14px]">arrow_back</span> Return to Website
         </a>
-        <span class="flex items-center gap-1 text-secondary-dark">
-          <span class="material-symbols-outlined text-[14px]">verified_user</span> Master Security
+        <span class="flex items-center gap-1 text-emerald-600">
+          <span class="material-symbols-outlined text-[14px]">security</span> Firebase Secured
         </span>
       </div>
     </div>
@@ -198,7 +335,7 @@
     <!-- Top Global Header -->
     <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-xl border-b border-outline-soft shadow-xs">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4 py-3">
-        
+
         <!-- Left: Logo & Title -->
         <div class="flex items-center gap-3">
           <a href="index.html" class="flex items-center group" title="Return to Treat Website">
@@ -208,7 +345,8 @@
           <div>
             <div class="flex items-center gap-2">
               <h1 class="font-headline font-black text-base sm:text-lg text-dark leading-tight">Admin Studio</h1>
-              <span class="px-2.5 py-0.5 rounded-full bg-pink-50 border border-pink-200 text-primary text-[10px] font-black uppercase tracking-wide">
+              <span
+                class="px-2.5 py-0.5 rounded-full bg-pink-50 border border-pink-200 text-primary text-[10px] font-black uppercase tracking-wide">
                 Full Page Mode
               </span>
             </div>
@@ -221,32 +359,29 @@
 
         <!-- Right: Action Buttons -->
         <div class="flex items-center gap-2 sm:gap-3">
-          <a 
-            href="index.html" 
-            target="_blank" 
+          <a href="index.html" target="_blank"
             class="px-3 sm:px-4 py-2 rounded-full bg-surface-low hover:bg-secondary-container text-secondary-dark text-xs font-extrabold flex items-center gap-1.5 border border-outline-soft transition-all active:scale-95"
-            title="Open website in new tab"
-          >
+            title="Open website in new tab">
             <span class="material-symbols-outlined text-[16px]">open_in_new</span>
             <span class="hidden md:inline">View Live Site</span>
           </a>
 
-          <button 
-            type="button" 
-            id="admin-save-all-btn" 
+          <!-- Admin User Profile Pill -->
+          <div id="admin-user-pill" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-50/80 border border-purple-200/60 text-xs font-bold text-dark shadow-2xs">
+            <span class="w-6 h-6 rounded-full bg-primary text-white text-[10px] font-black flex items-center justify-center uppercase shadow-xs" id="admin-user-avatar">A</span>
+            <span class="max-w-[160px] truncate text-gray-700 font-bold" id="admin-user-email">admin</span>
+          </div>
+
+          <button type="button" id="admin-save-all-btn"
             class="px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-primary to-secondary text-white text-xs font-black uppercase tracking-wider flex items-center gap-2 shadow-md hover:shadow-lg active:scale-95 transition-all"
-            title="Save all changes and update landing page immediately"
-          >
+            title="Save all changes and update landing page immediately">
             <span class="material-symbols-outlined text-[18px]">save</span>
             <span>Save All</span>
           </button>
 
-          <button 
-            type="button" 
-            id="admin-logout-btn" 
+          <button type="button" id="admin-logout-btn"
             class="w-9 h-9 rounded-full bg-surface-low hover:bg-rose-50 text-gray-600 hover:text-rose-600 flex items-center justify-center border border-outline-soft transition-all"
-            title="Lock Admin Studio (Logout)"
-          >
+            title="Lock Admin Studio (Logout)">
             <span class="material-symbols-outlined text-[18px]">lock</span>
           </button>
         </div>
@@ -255,11 +390,12 @@
     </header>
 
     <!-- Main Workspace: Sidebar + Content -->
-    <div class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex flex-col lg:flex-row gap-6 lg:gap-8">
-      
+    <div
+      class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex flex-col lg:flex-row gap-6 lg:gap-8">
+
       <!-- Left Sidebar Navigation -->
       <aside class="lg:w-72 shrink-0 flex flex-col gap-4">
-        
+
         <div class="bg-white rounded-3xl border border-outline-soft p-3 sm:p-4 shadow-xs">
           <span class="text-[10px] font-black uppercase tracking-widest text-gray-400 px-3 block mb-2">
             Configuration Sections
@@ -275,8 +411,8 @@
               <span>Hero & Brand Vision</span>
             </button>
             <button type="button" class="sidebar-tab-btn" data-tab="developer">
-              <span class="material-symbols-outlined text-[20px]">terminal</span>
-              <span>Developer Profile</span>
+              <span class="material-symbols-outlined text-[20px]">group</span>
+              <span>Team Profiles (3 Members)</span>
             </button>
             <button type="button" class="sidebar-tab-btn" data-tab="platters">
               <span class="material-symbols-outlined text-[20px]">restaurant</span>
@@ -287,8 +423,12 @@
               <span>Foodie Reviews</span>
             </button>
             <button type="button" class="sidebar-tab-btn" data-tab="download">
-              <span class="material-symbols-outlined text-[20px]">download</span>
-              <span>Download & APK Targets</span>
+              <span class="material-symbols-outlined text-[20px]">rocket_launch</span>
+              <span>App Launch & Downloads</span>
+            </button>
+            <button type="button" class="sidebar-tab-btn" data-tab="contact">
+              <span class="material-symbols-outlined text-[20px]">contact_support</span>
+              <span>Support & Official Facebook</span>
             </button>
             <button type="button" class="sidebar-tab-btn" data-tab="backup">
               <span class="material-symbols-outlined text-[20px]">settings_backup_restore</span>
@@ -298,10 +438,12 @@
         </div>
 
         <!-- Quick Info Card -->
-        <div class="bg-white rounded-3xl border border-outline-soft p-4 shadow-xs text-xs font-medium text-gray-500 flex flex-col gap-2">
+        <div
+          class="bg-white rounded-3xl border border-outline-soft p-4 shadow-xs text-xs font-medium text-gray-500 flex flex-col gap-2">
           <div class="flex items-center justify-between">
             <span class="font-bold text-dark">Security Status</span>
-            <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold">Passkey Active</span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold">Passkey
+              Active</span>
           </div>
           <p class="text-[11px] text-gray-400">
             Changes are saved to browser local storage and immediately reflect on the landing page.
@@ -320,18 +462,18 @@
   </div>
 
   <!-- Toast Notification Container -->
-  <div id="admin-toast" class="fixed bottom-6 right-6 z-[250] px-5 py-3 rounded-2xl bg-dark text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 border border-white/10 transition-all duration-300 opacity-0 translate-y-4 pointer-events-none">
+  <div id="admin-toast"
+    class="fixed bottom-6 right-6 z-[250] px-5 py-3 rounded-2xl bg-dark text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 border border-white/10 transition-all duration-300 opacity-0 translate-y-4 pointer-events-none">
     <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
     <span id="admin-toast-text">Changes saved successfully</span>
   </div>
 
   <!-- Scripts -->
+  <script type="module" src="js/firebase-auth.js"></script>
   <script src="js/defaultData.js"></script>
   <script>
-    (function() {
+    (function () {
       const storageKey = 'treat_landing_config_v4';
-      const authSessionKey = 'treat_admin_session_auth_v1';
-      const masterPasskey = '133162029';
 
       let activeTab = 'flow';
       let config = loadConfig();
@@ -340,12 +482,24 @@
       const loginScreen = document.getElementById('admin-login-screen');
       const dashboardApp = document.getElementById('admin-dashboard-app');
       const loginForm = document.getElementById('admin-login-form');
-      const passInput = document.getElementById('admin-passkey-input');
-      const passToggle = document.getElementById('admin-passkey-toggle');
+      const emailInput = document.getElementById('admin-email-input');
+      const passInput = document.getElementById('admin-password-input');
+      const passToggle = document.getElementById('admin-password-toggle');
       const passToggleIcon = document.getElementById('pass-toggle-icon');
+      const loginSubmitBtn = document.getElementById('admin-login-submit');
+      const loginBtnText = document.getElementById('admin-login-btn-text');
+      const loginSpinner = document.getElementById('admin-login-spinner');
+      const loginLockIcon = document.getElementById('admin-login-lock-icon');
+      const googleLoginBtn = document.getElementById('admin-google-login-btn');
+      const forgotPassBtn = document.getElementById('admin-forgot-password-btn');
       const loginError = document.getElementById('admin-login-error');
       const loginErrorText = document.getElementById('admin-login-error-text');
+      const loginNotice = document.getElementById('admin-login-notice');
+      const loginNoticeText = document.getElementById('admin-login-notice-text');
       const loginCard = document.getElementById('admin-login-card');
+      const userPill = document.getElementById('admin-user-pill');
+      const userEmailEl = document.getElementById('admin-user-email');
+      const userAvatarEl = document.getElementById('admin-user-avatar');
 
       // DOM Elements - Header & Tabs
       const saveAllBtn = document.getElementById('admin-save-all-btn');
@@ -359,8 +513,24 @@
           if (stored) {
             const parsed = JSON.parse(stored);
             if (parsed && Array.isArray(parsed.flowSteps) && parsed.flowSteps.length >= 4) {
-              if (!parsed.developer && window.TREAT_DEFAULT_DATA && window.TREAT_DEFAULT_DATA.developer) {
-                parsed.developer = JSON.parse(JSON.stringify(window.TREAT_DEFAULT_DATA.developer));
+              if (!parsed.team && window.TREAT_DEFAULT_DATA && window.TREAT_DEFAULT_DATA.team) {
+                parsed.team = JSON.parse(JSON.stringify(window.TREAT_DEFAULT_DATA.team));
+                if (parsed.developer) {
+                  parsed.team[0] = Object.assign({}, parsed.team[0], parsed.developer);
+                }
+              }
+              if (!parsed.developer && parsed.team && parsed.team[0]) {
+                parsed.developer = parsed.team[0];
+              }
+              if (window.TREAT_DEFAULT_DATA && window.TREAT_DEFAULT_DATA.download) {
+                parsed.download = Object.assign({}, window.TREAT_DEFAULT_DATA.download, parsed.download || {});
+              }
+              if (window.TREAT_DEFAULT_DATA && window.TREAT_DEFAULT_DATA.contact) {
+                parsed.contact = Object.assign({}, window.TREAT_DEFAULT_DATA.contact, parsed.contact || {});
+              }
+              if (parsed.contact && parsed.contact.copyrightText && parsed.contact.copyrightText.includes('Funky Foodie Life')) {
+                parsed.contact.copyrightText = parsed.contact.copyrightText.replace(/\s*Funky Foodie Life\.?/gi, '').trim();
+                try { localStorage.setItem(storageKey, JSON.stringify(parsed)); } catch (e) {}
               }
               return parsed;
             }
@@ -381,50 +551,119 @@
         }
       }
 
-      function isAuthenticated() {
-        try {
-          return sessionStorage.getItem(authSessionKey) === 'true';
-        } catch (e) {
-          return false;
-        }
-      }
+      // --- FIREBASE AUTHENTICATION LOGIC ---
 
-      function checkAuth() {
-        if (isAuthenticated()) {
-          loginScreen.classList.add('hidden');
-          dashboardApp.classList.remove('hidden');
-          renderCurrentTab();
+      function setLoginLoading(loading, loadingText = 'Authenticating...') {
+        if (loading) {
+          loginSubmitBtn.disabled = true;
+          if (googleLoginBtn) googleLoginBtn.disabled = true;
+          loginSpinner.classList.remove('hidden');
+          loginLockIcon.classList.add('hidden');
+          loginBtnText.textContent = loadingText;
         } else {
-          loginScreen.classList.remove('hidden');
-          dashboardApp.classList.add('hidden');
-          setTimeout(() => passInput.focus(), 100);
+          loginSubmitBtn.disabled = false;
+          if (googleLoginBtn) googleLoginBtn.disabled = false;
+          loginSpinner.classList.add('hidden');
+          loginLockIcon.classList.remove('hidden');
+          loginBtnText.textContent = 'Sign In to Dashboard';
         }
       }
 
-      function submitAuth() {
-        const val = passInput.value.trim();
-        if (val === masterPasskey) {
-          try {
-            sessionStorage.setItem(authSessionKey, 'true');
-          } catch(e) {}
-          checkAuth();
+      function showLoginError(message) {
+        loginError.classList.remove('hidden');
+        loginErrorText.textContent = message;
+        loginCard.classList.remove('shake-error');
+        void loginCard.offsetWidth; // trigger reflow
+        loginCard.classList.add('shake-error');
+      }
+
+      function hideLoginMessages() {
+        loginError.classList.add('hidden');
+        loginNotice.classList.add('hidden');
+      }
+
+      function showLoginNotice(message) {
+        loginNotice.classList.remove('hidden');
+        loginNoticeText.textContent = message;
+      }
+
+      async function submitEmailAuth() {
+        const email = emailInput ? emailInput.value.trim() : '';
+        const password = passInput ? passInput.value : '';
+
+        if (!email) {
+          showLoginError('Please enter your admin email.');
+          emailInput.focus();
+          return;
+        }
+        if (!password) {
+          showLoginError('Please enter your admin password.');
+          passInput.focus();
+          return;
+        }
+
+        hideLoginMessages();
+        setLoginLoading(true, 'Verifying Credentials...');
+
+        try {
+          if (!window.TreatAuth) {
+            throw new Error('Firebase Auth is still initializing. Please wait a moment.');
+          }
+          await window.TreatAuth.loginWithEmail(email, password);
           showToast('Welcome to Treat Admin Dashboard');
-        } else {
-          loginError.classList.remove('hidden');
-          loginErrorText.textContent = val === '' ? 'Please enter the security passkey.' : 'Incorrect passkey. Access denied.';
-          loginCard.classList.remove('shake-error');
-          void loginCard.offsetWidth;
-          loginCard.classList.add('shake-error');
-          passInput.select();
+        } catch (err) {
+          showLoginError(err.message || 'Authentication failed. Please check credentials.');
+        } finally {
+          setLoginLoading(false);
         }
       }
 
-      function logout() {
+      async function submitGoogleAuth() {
+        hideLoginMessages();
+        setLoginLoading(true, 'Connecting to Google...');
+
         try {
-          sessionStorage.removeItem(authSessionKey);
-        } catch (e) {}
-        checkAuth();
-        showToast('Admin Studio Locked');
+          if (!window.TreatAuth) {
+            throw new Error('Firebase Auth is still initializing. Please wait a moment.');
+          }
+          await window.TreatAuth.loginWithGoogle();
+          showToast('Welcome to Treat Admin Dashboard');
+        } catch (err) {
+          showLoginError(err.message || 'Google sign-in failed.');
+        } finally {
+          setLoginLoading(false);
+        }
+      }
+
+      async function handleForgotPassword() {
+        hideLoginMessages();
+        const email = emailInput ? emailInput.value.trim() : '';
+        if (!email) {
+          showLoginError('Enter your admin email address first, then click "Forgot password?".');
+          emailInput.focus();
+          return;
+        }
+
+        try {
+          if (!window.TreatAuth) {
+            throw new Error('Firebase Auth is still initializing.');
+          }
+          await window.TreatAuth.sendPasswordReset(email);
+          showLoginNotice(`Password reset link sent to ${email}. Check your inbox!`);
+        } catch (err) {
+          showLoginError(err.message || 'Could not send password reset email.');
+        }
+      }
+
+      async function logout() {
+        try {
+          if (window.TreatAuth) {
+            await window.TreatAuth.logout();
+          }
+          showToast('Admin Studio Locked');
+        } catch (e) {
+          console.error('Logout failed:', e);
+        }
       }
 
       function showToast(msg) {
@@ -443,8 +682,16 @@
       // Event Listeners for Authentication
       loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        submitAuth();
+        submitEmailAuth();
       });
+
+      if (googleLoginBtn) {
+        googleLoginBtn.addEventListener('click', submitGoogleAuth);
+      }
+
+      if (forgotPassBtn) {
+        forgotPassBtn.addEventListener('click', handleForgotPassword);
+      }
 
       passToggle.addEventListener('click', () => {
         if (passInput.type === 'password') {
@@ -458,6 +705,45 @@
 
       logoutBtn.addEventListener('click', logout);
       saveAllBtn.addEventListener('click', () => saveConfig(false));
+
+      // Auth State Observer - Reacts to Firebase login/logout
+      function bindAuthState() {
+        if (!window.TreatAuth) {
+          setTimeout(bindAuthState, 50);
+          return;
+        }
+
+        window.TreatAuth.onAuthStateChanged((user) => {
+          if (user) {
+            // Logged In
+            loginScreen.classList.add('hidden');
+            dashboardApp.classList.remove('hidden');
+
+            if (userEmailEl) {
+              userEmailEl.textContent = user.email || 'Admin';
+            }
+            if (userAvatarEl) {
+              const letter = (user.displayName ? user.displayName.charAt(0) : (user.email ? user.email.charAt(0) : 'A')).toUpperCase();
+              userAvatarEl.textContent = letter;
+            }
+            if (userPill) {
+              userPill.classList.remove('hidden');
+            }
+
+            renderCurrentTab();
+          } else {
+            // Logged Out
+            loginScreen.classList.remove('hidden');
+            dashboardApp.classList.add('hidden');
+            if (userPill) userPill.classList.add('hidden');
+            setTimeout(() => {
+              if (emailInput) emailInput.focus();
+            }, 100);
+          }
+        });
+      }
+
+      bindAuthState();
 
       // Sidebar Tab Clicking
       sidebarNav.querySelectorAll('.sidebar-tab-btn').forEach(btn => {
@@ -473,7 +759,7 @@
 
       function renderCurrentTab() {
         mainContent.innerHTML = '';
-        switch(activeTab) {
+        switch (activeTab) {
           case 'flow':
             renderFlowTab(mainContent);
             break;
@@ -491,6 +777,9 @@
             break;
           case 'download':
             renderDownloadTab(mainContent);
+            break;
+          case 'contact':
+            renderContactTab(mainContent);
             break;
           case 'backup':
             renderBackupTab(mainContent);
@@ -878,176 +1167,284 @@
       }
 
       // =====================================================================
-      // TAB 3: DEVELOPER PROFILE SHOWCASE
+      // TAB 3: TEAM & DEVELOPER PROFILES SHOWCASE (3 MEMBERS)
       // =====================================================================
       function renderDeveloperTab(container) {
-        const dev = config.developer || (window.TREAT_DEFAULT_DATA ? window.TREAT_DEFAULT_DATA.developer : {});
+        if (!config.team || !Array.isArray(config.team) || config.team.length < 3) {
+          config.team = (window.TREAT_DEFAULT_DATA && Array.isArray(window.TREAT_DEFAULT_DATA.team))
+            ? JSON.parse(JSON.stringify(window.TREAT_DEFAULT_DATA.team))
+            : [
+                {
+                  id: 'member-1',
+                  name: (config.developer && config.developer.name) || 'Eftakhar Amin Sakib',
+                  role: (config.developer && config.developer.role) || 'Lead Full-Stack & Mobile Engineer',
+                  bio: (config.developer && config.developer.bio) || 'Architecting real-time mobile sync, interactive 3D UI, and clean cross-platform infrastructure.',
+                  avatar: (config.developer && config.developer.avatar) || 'https://github.com/EFTAKHAR-AMIN-SAKIB.png',
+                  portfolioUrl: (config.developer && config.developer.portfolioUrl) || 'https://github.com/EFTAKHAR-AMIN-SAKIB',
+                  githubUrl: (config.developer && config.developer.githubUrl) || 'https://github.com/EFTAKHAR-AMIN-SAKIB',
+                  linkedinUrl: 'https://www.linkedin.com/in/eftakhar-amin-sakib/'
+                },
+                {
+                  id: 'member-2',
+                  name: 'Ayesha Rahman',
+                  role: 'Product & UI/UX Designer',
+                  bio: 'Crafting playful human-centered foodie flows, squad budgeting systems, and delightful visual design.',
+                  avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80',
+                  portfolioUrl: 'https://dribbble.com',
+                  githubUrl: 'https://github.com',
+                  linkedinUrl: 'https://linkedin.com'
+                },
+                {
+                  id: 'member-3',
+                  name: 'Tanvir Ahmed',
+                  role: 'Backend & Systems Engineer',
+                  bio: 'Building low-latency restaurant kitchen sync, instantaneous 2-minute table locks, and resilient APIs.',
+                  avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80',
+                  portfolioUrl: 'https://github.com',
+                  githubUrl: 'https://github.com',
+                  linkedinUrl: 'https://linkedin.com'
+                }
+              ];
+        }
+
+        let activeMemberIdx = 0;
         const wrap = document.createElement('div');
         wrap.className = 'flex flex-col gap-6';
 
-        wrap.innerHTML = `
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-outline-soft">
-            <div>
-              <h2 class="font-headline font-black text-2xl text-dark">Developer Profile Showcase</h2>
-              <p class="text-xs sm:text-sm text-gray-500 font-medium">Manage developer credentials, GitHub URLs, role description, and tech stack chips.</p>
-            </div>
-            <button type="button" id="save-dev-btn" class="px-5 py-2.5 rounded-full bg-dark hover:bg-dark-card text-white text-xs font-black uppercase tracking-wider flex items-center gap-1.5 self-start sm:self-auto shadow-sm active:scale-95 transition-all">
-              <span class="material-symbols-outlined text-[16px]">check</span>
-              <span>Save Developer</span>
-            </button>
-          </div>
+        function renderTeamUI() {
+          const currentMember = config.team[activeMemberIdx] || config.team[0];
 
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            
-            <!-- Left Form (lg:col-span-7) -->
-            <div class="lg:col-span-7 admin-card p-6 flex flex-col gap-4">
+          wrap.innerHTML = `
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-outline-soft">
+              <div>
+                <h2 class="font-headline font-black text-2xl text-dark flex items-center gap-2">
+                  <span>Team Profiles Showcase</span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-purple-100 text-[#7C52AA] text-[11px] font-extrabold">3 Creators</span>
+                </h2>
+                <p class="text-xs sm:text-sm text-gray-500 font-medium">Manage profile photos, names, roles, basic info, and links for Portfolio, GitHub, and LinkedIn.</p>
+              </div>
+              <button type="button" id="save-all-team-btn" class="px-5 py-2.5 rounded-full bg-dark hover:bg-dark-card text-white text-xs font-black uppercase tracking-wider flex items-center gap-1.5 self-start sm:self-auto shadow-sm active:scale-95 transition-all">
+                <span class="material-symbols-outlined text-[16px]">check</span>
+                <span>Save All 3 Profiles</span>
+              </button>
+            </div>
+
+            <!-- Member Switcher Tabs -->
+            <div class="flex items-center gap-2 p-1.5 bg-gray-100/80 rounded-2xl border border-outline-soft overflow-x-auto">
+              ${config.team.map((m, idx) => `
+                <button type="button" class="team-tab-btn flex-1 min-w-[140px] py-2 px-3.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${activeMemberIdx === idx ? 'bg-white text-dark shadow-xs font-extrabold border border-purple-200/60' : 'text-gray-500 hover:text-dark'}" data-member-idx="${idx}">
+                  <span class="w-2 h-2 rounded-full ${activeMemberIdx === idx ? 'bg-[#E040A0]' : 'bg-gray-300'}"></span>
+                  <span class="truncate">${m.name || `Member ${idx + 1}`}</span>
+                  <span class="text-[10px] text-gray-400 font-medium">#0${idx + 1}</span>
+                </button>
+              `).join('')}
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
               
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label class="form-label">Full Name</label>
-                  <input type="text" id="dev-name" class="form-input font-bold" value="${dev.name || ''}">
+              <!-- Left Form: Active Member Fields (lg:col-span-7) -->
+              <div class="lg:col-span-7 admin-card p-6 flex flex-col gap-4">
+                <div class="flex items-center justify-between pb-2 border-b border-outline-soft">
+                  <span class="text-xs font-black uppercase tracking-wider text-gray-400">Editing Profile #0${activeMemberIdx + 1}</span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold">Active Builder</span>
                 </div>
-                <div>
-                  <label class="form-label">Role / Job Title</label>
-                  <input type="text" id="dev-role" class="form-input" value="${dev.role || ''}">
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label class="form-label">Full Name</label>
+                    <input type="text" id="member-name-input" class="form-input font-bold" value="${currentMember.name || ''}" placeholder="e.g. Eftakhar Amin Sakib">
+                  </div>
+                  <div>
+                    <label class="form-label">Role / Job Title</label>
+                    <input type="text" id="member-role-input" class="form-input" value="${currentMember.role || ''}" placeholder="e.g. Lead Full-Stack & Mobile Engineer">
+                  </div>
                 </div>
+
+                <div>
+                  <label class="form-label">Basic Info / Short Bio (Tagline)</label>
+                  <textarea id="member-bio-input" rows="2" class="form-input text-xs font-medium" placeholder="Brief 1-2 sentence statement about what they build at Treat...">${currentMember.bio || ''}</textarea>
+                </div>
+
+                <div>
+                  <label class="form-label">Profile Picture URL or Upload Image</label>
+                  <div class="flex items-center gap-2">
+                    <input type="text" id="member-avatar-input" class="form-input flex-1 text-xs" value="${currentMember.avatar || ''}" placeholder="https://... or upload local file">
+                    <label class="px-3 py-2.5 rounded-xl bg-pink-50 hover:bg-pink-100 text-primary border border-pink-200 text-xs font-bold cursor-pointer flex items-center gap-1 shrink-0 transition-all">
+                      <span class="material-symbols-outlined text-[16px]">upload_file</span>
+                      <span>Upload</span>
+                      <input type="file" id="member-avatar-file" class="hidden" accept="image/*">
+                    </label>
+                  </div>
+                </div>
+
+                <div class="pt-2 border-t border-outline-soft">
+                  <span class="text-[11px] font-black uppercase tracking-wider text-gray-400 block mb-2.5">Social &amp; Professional Links</span>
+                  <div class="flex flex-col gap-3">
+                    <div>
+                      <label class="form-label flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-[15px] text-[#7C52AA]">language</span>
+                        <span>Portfolio Website URL</span>
+                      </label>
+                      <input type="text" id="member-portfolio-input" class="form-input text-xs" value="${currentMember.portfolioUrl || ''}" placeholder="https://portfolio.com or https://dribbble.com">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label class="form-label flex items-center gap-1.5">
+                          <svg class="w-3.5 h-3.5 fill-current text-dark" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                          <span>GitHub Profile URL</span>
+                        </label>
+                        <input type="text" id="member-github-input" class="form-input text-xs" value="${currentMember.githubUrl || ''}" placeholder="https://github.com/username">
+                      </div>
+                      <div>
+                        <label class="form-label flex items-center gap-1.5">
+                          <svg class="w-3.5 h-3.5 fill-[#0077B5]" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                          <span>LinkedIn Profile URL</span>
+                        </label>
+                        <input type="text" id="member-linkedin-input" class="form-input text-xs" value="${currentMember.linkedinUrl || ''}" placeholder="https://linkedin.com/in/username">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label class="form-label">Status Pill Text</label>
-                  <input type="text" id="dev-status" class="form-input" value="${dev.status || 'Active Engineering • Dhaka'}">
+              <!-- Right Preview: Live Card (lg:col-span-5) -->
+              <div class="lg:col-span-5 admin-card p-6 flex flex-col gap-3 bg-surface-low sticky top-24">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-black uppercase tracking-wider text-gray-400">Live Card Preview (#0${activeMemberIdx + 1})</span>
+                  <span class="text-[10px] text-gray-400 font-bold">Treat Style</span>
                 </div>
-                <div>
-                  <label class="form-label">Location</label>
-                  <input type="text" id="dev-location" class="form-input" value="${dev.location || 'Dhaka, Bangladesh'}">
-                </div>
-              </div>
 
-              <div>
-                <label class="form-label">Bio / Engineering Statement</label>
-                <textarea id="dev-bio" rows="3" class="form-input">${dev.bio || ''}</textarea>
-              </div>
+                <div class="p-6 rounded-3xl bg-white border border-outline-soft shadow-sm flex flex-col items-center text-center relative overflow-hidden">
+                  <!-- Avatar Circle -->
+                  <div class="w-24 h-24 rounded-full p-0.5 bg-gradient-to-tr from-primary via-secondary to-blue-500 shadow-md mb-3 relative">
+                    <img src="${currentMember.avatar || 'https://github.com/EFTAKHAR-AMIN-SAKIB.png'}" id="prev-member-avatar" class="w-full h-full rounded-full object-cover bg-purple-50" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80';">
+                    <span class="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-[#181024] text-[#E040A0] flex items-center justify-center shadow-xs border border-white">
+                      <span class="material-symbols-outlined text-[13px]">verified</span>
+                    </span>
+                  </div>
 
-              <div>
-                <label class="form-label">Avatar Photo URL or Upload</label>
-                <div class="flex items-center gap-2">
-                  <input type="text" id="dev-avatar" class="form-input flex-1 text-xs" value="${dev.avatar || ''}">
-                  <label class="px-3 py-2.5 rounded-xl bg-pink-50 hover:bg-pink-100 text-primary border border-pink-200 text-xs font-bold cursor-pointer flex items-center gap-1 shrink-0 transition-all">
-                    <span class="material-symbols-outlined text-[16px]">upload_file</span>
-                    <span>Upload</span>
-                    <input type="file" id="dev-avatar-file" class="hidden" accept="image/*">
-                  </label>
-                </div>
-              </div>
+                  <h4 class="font-headline font-black text-lg text-dark mb-0.5" id="prev-member-name">${currentMember.name || 'Name'}</h4>
+                  <p class="text-xs font-bold text-[#7C52AA] mb-2" id="prev-member-role">${currentMember.role || 'Role'}</p>
+                  <p class="text-[11px] text-gray-500 font-medium line-clamp-3 mb-4 leading-relaxed" id="prev-member-bio">${currentMember.bio || 'Bio tagline...'}</p>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label class="form-label">GitHub Profile URL</label>
-                  <input type="text" id="dev-github" class="form-input text-xs" value="${dev.githubUrl || ''}">
+                  <div class="flex flex-wrap items-center justify-center gap-1.5 w-full pt-3 border-t border-purple-50">
+                    <span class="px-2.5 py-1 rounded-full bg-purple-50 text-[#7C52AA] text-[10px] font-bold flex items-center gap-1 border border-purple-100">
+                      <span class="material-symbols-outlined text-[13px]">language</span> Portfolio
+                    </span>
+                    <span class="px-2.5 py-1 rounded-full bg-[#181024] text-white text-[10px] font-bold flex items-center gap-1 shadow-2xs">
+                      <svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> GitHub
+                    </span>
+                    <span class="px-2.5 py-1 rounded-full bg-[#0077B5] text-white text-[10px] font-bold flex items-center gap-1 shadow-2xs">
+                      <svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> LinkedIn
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <label class="form-label">Project Repository URL</label>
-                  <input type="text" id="dev-repo" class="form-input text-xs" value="${dev.repoUrl || ''}">
-                </div>
-              </div>
 
-              <div>
-                <label class="form-label">Skills & Technologies (Comma-separated)</label>
-                <input type="text" id="dev-skills" class="form-input text-xs" value="${Array.isArray(dev.skills) ? dev.skills.join(', ') : ''}">
+                <!-- Mini summary of other members -->
+                <div class="pt-3 border-t border-outline-soft flex flex-col gap-2">
+                  <span class="text-[10px] font-black uppercase tracking-wider text-gray-400">All 3 Team Members</span>
+                  <div class="flex flex-col gap-1.5">
+                    ${config.team.map((m, idx) => `
+                      <div class="flex items-center justify-between p-2 rounded-xl ${activeMemberIdx === idx ? 'bg-purple-50 border border-purple-200/80' : 'bg-white border border-outline-soft'} cursor-pointer transition-all" data-quick-switch="${idx}">
+                        <div class="flex items-center gap-2 min-w-0">
+                          <img src="${m.avatar || 'https://github.com/EFTAKHAR-AMIN-SAKIB.png'}" class="w-6 h-6 rounded-full object-cover bg-purple-100 shrink-0">
+                          <div class="min-w-0">
+                            <p class="text-xs font-bold text-dark truncate">${m.name || `Member ${idx + 1}`}</p>
+                            <p class="text-[10px] text-gray-400 truncate">${m.role || 'Role'}</p>
+                          </div>
+                        </div>
+                        <span class="text-[10px] font-bold ${activeMemberIdx === idx ? 'text-[#7C52AA]' : 'text-gray-400'}">#0${idx + 1}</span>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+
               </div>
 
             </div>
+          `;
 
-            <!-- Right Preview (lg:col-span-5) -->
-            <div class="lg:col-span-5 admin-card p-6 flex flex-col gap-3 bg-surface-low">
-              <span class="text-[10px] font-black uppercase tracking-wider text-gray-400">Live Developer Card</span>
+          // Bind Switcher Buttons
+          wrap.querySelectorAll('.team-tab-btn, [data-quick-switch]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              const targetIdx = parseInt(btn.getAttribute('data-member-idx') || btn.getAttribute('data-quick-switch'), 10);
+              if (!isNaN(targetIdx) && targetIdx !== activeMemberIdx) {
+                activeMemberIdx = targetIdx;
+                renderTeamUI();
+              }
+            });
+          });
 
-              <div class="p-6 rounded-3xl bg-white border border-outline-soft shadow-sm flex flex-col items-center text-center">
-                <div class="w-24 h-24 rounded-2xl p-0.5 bg-gradient-to-tr from-primary via-secondary to-blue-500 shadow-md mb-3">
-                  <img src="${dev.avatar || 'https://github.com/EFTAKHAR-AMIN-SAKIB.png'}" id="dev-prev-avatar" class="w-full h-full rounded-[14px] object-cover">
-                </div>
+          // Bind Form Inputs
+          const nameInput = wrap.querySelector('#member-name-input');
+          const roleInput = wrap.querySelector('#member-role-input');
+          const bioInput = wrap.querySelector('#member-bio-input');
+          const avatarInput = wrap.querySelector('#member-avatar-input');
+          const avatarFile = wrap.querySelector('#member-avatar-file');
+          const portfolioInput = wrap.querySelector('#member-portfolio-input');
+          const githubInput = wrap.querySelector('#member-github-input');
+          const linkedinInput = wrap.querySelector('#member-linkedin-input');
 
-                <div class="px-3 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[10px] font-black mb-2" id="dev-prev-status">
-                  ${dev.status || 'Active Engineering'}
-                </div>
+          const prevAvatar = wrap.querySelector('#prev-member-avatar');
+          const prevName = wrap.querySelector('#prev-member-name');
+          const prevRole = wrap.querySelector('#prev-member-role');
+          const prevBio = wrap.querySelector('#prev-member-bio');
 
-                <h4 class="font-headline font-black text-lg text-dark" id="dev-prev-name">${dev.name}</h4>
-                <p class="text-xs font-bold text-secondary-dark mt-0.5 mb-2" id="dev-prev-role">${dev.role}</p>
-                <p class="text-[11px] text-gray-500 font-medium line-clamp-3 mb-3" id="dev-prev-bio">${dev.bio}</p>
+          function updateCurrentMemberLive() {
+            if (!config.team[activeMemberIdx]) config.team[activeMemberIdx] = {};
+            config.team[activeMemberIdx].name = nameInput.value;
+            config.team[activeMemberIdx].role = roleInput.value;
+            config.team[activeMemberIdx].bio = bioInput.value;
+            config.team[activeMemberIdx].avatar = avatarInput.value;
+            config.team[activeMemberIdx].portfolioUrl = portfolioInput.value;
+            config.team[activeMemberIdx].githubUrl = githubInput.value;
+            config.team[activeMemberIdx].linkedinUrl = linkedinInput.value;
 
-                <div class="flex flex-wrap items-center justify-center gap-1.5 w-full" id="dev-prev-skills">
-                  ${(dev.skills || []).map(s => `<span class="px-2.5 py-0.5 rounded-full bg-purple-50 text-secondary-dark text-[10px] font-bold border border-purple-100">${s}</span>`).join('')}
-                </div>
-              </div>
+            // Keep developer object synced to member 1
+            if (activeMemberIdx === 0) {
+              config.developer = Object.assign({}, config.developer || {}, config.team[0]);
+            }
 
-            </div>
+            prevName.textContent = nameInput.value || 'Name';
+            prevRole.textContent = roleInput.value || 'Role';
+            prevBio.textContent = bioInput.value || 'Bio tagline...';
+            prevAvatar.src = avatarInput.value || 'https://github.com/EFTAKHAR-AMIN-SAKIB.png';
 
-          </div>
-        `;
-        container.appendChild(wrap);
+            saveConfig(true);
+          }
 
-        const nameIn = wrap.querySelector('#dev-name');
-        const roleIn = wrap.querySelector('#dev-role');
-        const statusIn = wrap.querySelector('#dev-status');
-        const locIn = wrap.querySelector('#dev-location');
-        const bioIn = wrap.querySelector('#dev-bio');
-        const avatarIn = wrap.querySelector('#dev-avatar');
-        const avatarFile = wrap.querySelector('#dev-avatar-file');
-        const gitIn = wrap.querySelector('#dev-github');
-        const repoIn = wrap.querySelector('#dev-repo');
-        const skillsIn = wrap.querySelector('#dev-skills');
+          [nameInput, roleInput, bioInput, avatarInput, portfolioInput, githubInput, linkedinInput].forEach(inp => {
+            if (inp) inp.addEventListener('input', updateCurrentMemberLive);
+          });
 
-        const prevAvatar = wrap.querySelector('#dev-prev-avatar');
-        const prevStatus = wrap.querySelector('#dev-prev-status');
-        const prevName = wrap.querySelector('#dev-prev-name');
-        const prevRole = wrap.querySelector('#dev-prev-role');
-        const prevBio = wrap.querySelector('#dev-prev-bio');
-        const prevSkills = wrap.querySelector('#dev-prev-skills');
+          if (avatarFile) {
+            avatarFile.addEventListener('change', (e) => {
+              const file = e.target.files[0];
+              if (file) {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                  avatarInput.value = ev.target.result;
+                  updateCurrentMemberLive();
+                  showToast(`Uploaded photo for ${config.team[activeMemberIdx].name || 'Member'}`);
+                };
+                reader.readAsDataURL(file);
+              }
+            });
+          }
 
-        function updateDevLive() {
-          if (!config.developer) config.developer = {};
-          config.developer.name = nameIn.value;
-          config.developer.role = roleIn.value;
-          config.developer.status = statusIn.value;
-          config.developer.location = locIn.value;
-          config.developer.bio = bioIn.value;
-          config.developer.avatar = avatarIn.value;
-          config.developer.githubUrl = gitIn.value;
-          config.developer.repoUrl = repoIn.value;
-          config.developer.skills = skillsIn.value.split(',').map(s => s.trim()).filter(Boolean);
-
-          prevName.textContent = nameIn.value;
-          prevRole.textContent = roleIn.value;
-          prevStatus.textContent = statusIn.value;
-          prevBio.textContent = bioIn.value;
-          prevAvatar.src = avatarIn.value;
-          prevSkills.innerHTML = config.developer.skills.map(s => `<span class="px-2.5 py-0.5 rounded-full bg-purple-50 text-secondary-dark text-[10px] font-bold border border-purple-100">${s}</span>`).join('');
-
-          saveConfig(true);
+          const saveAllBtn = wrap.querySelector('#save-all-team-btn');
+          if (saveAllBtn) {
+            saveAllBtn.addEventListener('click', () => {
+              updateCurrentMemberLive();
+              saveConfig(false);
+            });
+          }
         }
 
-        [nameIn, roleIn, statusIn, locIn, bioIn, avatarIn, gitIn, repoIn, skillsIn].forEach(inp => {
-          inp.addEventListener('input', updateDevLive);
-        });
-
-        avatarFile.addEventListener('change', (e) => {
-          const f = e.target.files[0];
-          if (f) {
-            const reader = new FileReader();
-            reader.onload = (re) => {
-              avatarIn.value = re.target.result;
-              updateDevLive();
-              showToast('Developer avatar uploaded');
-            };
-            reader.readAsDataURL(f);
-          }
-        });
-
-        wrap.querySelector('#save-dev-btn').addEventListener('click', () => {
-          updateDevLive();
-          saveConfig(false);
-        });
+        renderTeamUI();
+        container.appendChild(wrap);
       }
 
       // =====================================================================
@@ -1227,100 +1624,839 @@
       }
 
       // =====================================================================
-      // TAB 6: DOWNLOAD CTA & APK TARGETS
+      // TAB 6: APP LAUNCH & DOWNLOAD MANAGER
       // =====================================================================
       function renderDownloadTab(container) {
-        const dl = config.download || {};
+        if (!config.download) {
+          config.download = (window.TREAT_DEFAULT_DATA && window.TREAT_DEFAULT_DATA.download)
+            ? JSON.parse(JSON.stringify(window.TREAT_DEFAULT_DATA.download))
+            : { mode: 'coming_soon' };
+        }
+        const dl = config.download;
+        if (!dl.mode) dl.mode = 'coming_soon';
+        if (dl.progressPercent === undefined || dl.progressPercent === null) dl.progressPercent = 85;
+        if (!dl.progressLabel) dl.progressLabel = 'Launch Readiness';
+        if (!dl.progressSublabel) dl.progressSublabel = 'Private Beta & Kitchen Floor Sync';
+        if (!dl.modalBadge) dl.modalBadge = 'DROPPING SOON • PRIVATE PREVIEW';
+        if (!dl.modalTitle) dl.modalTitle = 'Something delicious is in the works.';
+        if (!dl.modalSubtitle) dl.modalSubtitle = "We're quietly perfecting a whole new way to feast with your squad. Drop your contact below to get an invite before doors open to the public.";
+        if (!dl.modalNotifyBtnText) dl.modalNotifyBtnText = 'Request Early Invite ✨';
+        if (!dl.modalSuccessMsg) dl.modalSuccessMsg = "You're on the invite list! Keep an eye on your inbox.";
+        if (!dl.modalFooterNote) dl.modalFooterNote = 'Invite-only initial batch. No spam, just first access.';
+
         const wrap = document.createElement('div');
         wrap.className = 'flex flex-col gap-6';
 
+        // Read waitlist subscribers
+        let waitlist = [];
+        try {
+          waitlist = JSON.parse(localStorage.getItem('treat_waitlist_subscribers') || '[]');
+        } catch (e) {
+          waitlist = [];
+        }
+
         wrap.innerHTML = `
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-outline-soft">
+          <!-- Header -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-outline-soft">
             <div>
-              <h2 class="font-headline font-black text-2xl text-dark">Download CTA & APK Targets</h2>
-              <p class="text-xs sm:text-sm text-gray-500 font-medium">Configure download buttons, direct APK package URLs, file sizes, and Google Play links.</p>
+              <div class="flex items-center gap-2">
+                <h2 class="font-headline font-black text-2xl text-dark">App Launch & Download Manager</h2>
+                <span id="active-mode-badge" class="px-2.5 py-0.5 rounded-full bg-pink-100 text-primary text-[10.5px] font-black uppercase tracking-wider">
+                  ${dl.mode === 'coming_soon' ? 'Pre-Launch Active' : dl.mode === 'play_store' ? 'Google Play Live' : dl.mode === 'direct_apk' ? 'Direct APK' : 'Dual Mode'}
+                </span>
+              </div>
+              <p class="text-xs sm:text-sm text-gray-500 font-medium mt-0.5">
+                Manage your pre-launch countdown, progress bar, early invite collection, Google Play Store redirection, or APK hosting.
+              </p>
             </div>
-            <button type="button" id="save-dl-btn" class="px-5 py-2.5 rounded-full bg-dark hover:bg-dark-card text-white text-xs font-black uppercase tracking-wider flex items-center gap-1.5 self-start sm:self-auto shadow-sm active:scale-95 transition-all">
-              <span class="material-symbols-outlined text-[16px]">check</span>
-              <span>Update Download</span>
-            </button>
+            <div class="flex items-center gap-2 self-start sm:self-auto">
+              <button type="button" id="preview-modal-btn" class="px-4 py-2.5 rounded-full bg-pink-50 hover:bg-pink-100 text-primary border border-pink-200 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-2xs active:scale-95 transition-all">
+                <span class="material-symbols-outlined text-[17px]">visibility</span>
+                <span>Preview Banner</span>
+              </button>
+              <button type="button" id="save-dl-btn" class="px-5 py-2.5 rounded-full bg-dark hover:bg-dark-card text-white text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-sm active:scale-95 transition-all">
+                <span class="material-symbols-outlined text-[16px]">check</span>
+                <span>Save Launch Settings</span>
+              </button>
+            </div>
           </div>
 
-          <div class="admin-card p-6 flex flex-col gap-4 max-w-2xl">
-            
-            <div>
-              <label class="form-label">Download CTA Button Label</label>
-              <input type="text" id="dl-cta-text" class="form-input font-bold" value="${dl.ctaText || 'Download Treat for Android'}">
+          <!-- 1. LAUNCH MODE SELECTOR (4 CARDS) -->
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center justify-between">
+              <span class="form-label mb-0 text-xs text-dark font-black">1. Choose Active Visitor Download Mode</span>
+              <span class="text-[11px] text-gray-400 font-medium">Click any card to activate mode immediately</span>
             </div>
 
-            <div>
-              <label class="form-label">Subtitle / Squad Callout</label>
-              <textarea id="dl-cta-subtext" rows="2" class="form-input">${dl.ctaSubtext || ''}</textarea>
-            </div>
-
-            <div>
-              <label class="form-label">Android APK Package Download URL</label>
-              <input type="text" id="dl-apk-url" class="form-input text-xs" value="${dl.apkDownloadUrl || 'assets/downloads/Treat-v1.0.4-release.apk'}">
-            </div>
-
-            <div class="grid grid-cols-2 gap-3">
-              <div>
-                <label class="form-label">Version Number</label>
-                <input type="text" id="dl-version" class="form-input text-xs" value="${dl.apkVersion || 'v1.0.4 (Android 9.0+)'}">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5" id="mode-selector-grid">
+              <!-- Mode 1: coming_soon -->
+              <div class="mode-card cursor-pointer p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 ${dl.mode === 'coming_soon' ? 'border-[#E040A0] bg-pink-50/40 shadow-sm' : 'border-outline-soft bg-white hover:border-purple-200'}" data-mode="coming_soon">
+                <div class="flex items-start justify-between gap-2">
+                  <div class="w-10 h-10 rounded-xl bg-pink-100 text-primary flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[22px]">rocket_launch</span>
+                  </div>
+                  <span class="mode-indicator w-5 h-5 rounded-full border-2 flex items-center justify-center ${dl.mode === 'coming_soon' ? 'border-primary bg-primary' : 'border-gray-300'}">
+                    <span class="w-2 h-2 rounded-full bg-white ${dl.mode === 'coming_soon' ? '' : 'hidden'}"></span>
+                  </span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-1.5 mb-1">
+                    <h4 class="font-headline font-black text-sm text-dark">Pre-Launch Banner</h4>
+                    <span class="px-1.5 py-0.5 rounded-md bg-emerald-100 text-emerald-800 text-[9px] font-black uppercase">Active Now</span>
+                  </div>
+                  <p class="text-[11px] text-gray-500 font-medium leading-relaxed">
+                    App is in development. Clicks show the Treat curiosity popup with progress bar & early invite sign-up.
+                  </p>
+                </div>
               </div>
+
+              <!-- Mode 2: play_store -->
+              <div class="mode-card cursor-pointer p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 ${dl.mode === 'play_store' ? 'border-[#E040A0] bg-pink-50/40 shadow-sm' : 'border-outline-soft bg-white hover:border-purple-200'}" data-mode="play_store">
+                <div class="flex items-start justify-between gap-2">
+                  <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[22px]">shop</span>
+                  </div>
+                  <span class="mode-indicator w-5 h-5 rounded-full border-2 flex items-center justify-center ${dl.mode === 'play_store' ? 'border-primary bg-primary' : 'border-gray-300'}">
+                    <span class="w-2 h-2 rounded-full bg-white ${dl.mode === 'play_store' ? '' : 'hidden'}"></span>
+                  </span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-1.5 mb-1">
+                    <h4 class="font-headline font-black text-sm text-dark">Google Play Direct</h4>
+                  </div>
+                  <p class="text-[11px] text-gray-500 font-medium leading-relaxed">
+                    App is published! Clicks redirect visitors straight to your official Google Play Store page.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Mode 3: direct_apk -->
+              <div class="mode-card cursor-pointer p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 ${dl.mode === 'direct_apk' ? 'border-[#E040A0] bg-pink-50/40 shadow-sm' : 'border-outline-soft bg-white hover:border-purple-200'}" data-mode="direct_apk">
+                <div class="flex items-start justify-between gap-2">
+                  <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[22px]">android</span>
+                  </div>
+                  <span class="mode-indicator w-5 h-5 rounded-full border-2 flex items-center justify-center ${dl.mode === 'direct_apk' ? 'border-primary bg-primary' : 'border-gray-300'}">
+                    <span class="w-2 h-2 rounded-full bg-white ${dl.mode === 'direct_apk' ? '' : 'hidden'}"></span>
+                  </span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-1.5 mb-1">
+                    <h4 class="font-headline font-black text-sm text-dark">Direct APK Package</h4>
+                  </div>
+                  <p class="text-[11px] text-gray-500 font-medium leading-relaxed">
+                    Hosted APK file. Clicks immediately start the .apk download package directly in the browser.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Mode 4: store_and_apk -->
+              <div class="mode-card cursor-pointer p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 ${dl.mode === 'store_and_apk' ? 'border-[#E040A0] bg-pink-50/40 shadow-sm' : 'border-outline-soft bg-white hover:border-purple-200'}" data-mode="store_and_apk">
+                <div class="flex items-start justify-between gap-2">
+                  <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[22px]">hub</span>
+                  </div>
+                  <span class="mode-indicator w-5 h-5 rounded-full border-2 flex items-center justify-center ${dl.mode === 'store_and_apk' ? 'border-primary bg-primary' : 'border-gray-300'}">
+                    <span class="w-2 h-2 rounded-full bg-white ${dl.mode === 'store_and_apk' ? '' : 'hidden'}"></span>
+                  </span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-1.5 mb-1">
+                    <h4 class="font-headline font-black text-sm text-dark">Dual (Store + APK)</h4>
+                  </div>
+                  <p class="text-[11px] text-gray-500 font-medium leading-relaxed">
+                    Opens a modal offering both Google Play Store link and direct APK download options side-by-side.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2 COLUMNS: PRE-LAUNCH BANNER CUSTOMIZER (LEFT) & LIVE STORE / APK SETTINGS (RIGHT) -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <!-- LEFT: PRE-LAUNCH MODAL BANNER CUSTOMIZER -->
+            <div class="admin-card p-6 flex flex-col gap-4">
+              <div class="flex items-center justify-between pb-3 border-b border-outline-soft">
+                <div class="flex items-center gap-2">
+                  <span class="w-8 h-8 rounded-lg bg-pink-100 text-primary flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[18px]">campaign</span>
+                  </span>
+                  <div>
+                    <h3 class="font-headline font-black text-base text-dark">Pre-Launch Banner Modal</h3>
+                    <p class="text-[11px] text-gray-400 font-medium">Curiosity-driven pre-launch popup with progress bar & early invite list</p>
+                  </div>
+                </div>
+                <button type="button" id="preview-modal-mini-btn" class="px-2.5 py-1 rounded-full bg-purple-50 hover:bg-purple-100 text-secondary-dark text-[11px] font-bold flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[14px]">visibility</span> Preview
+                </button>
+              </div>
+
               <div>
-                <label class="form-label">Package Size</label>
-                <input type="text" id="dl-size" class="form-input text-xs" value="${dl.apkSize || '24.8 MB'}">
+                <label class="form-label">Modal Pill Badge</label>
+                <input type="text" id="dl-modal-badge" class="form-input text-xs" value="${dl.modalBadge}">
+              </div>
+
+              <div>
+                <label class="form-label">Modal Headline</label>
+                <input type="text" id="dl-modal-title" class="form-input font-bold" value="${dl.modalTitle}">
+              </div>
+
+              <div>
+                <label class="form-label">Modal Story / Subtitle (Curiosity & Exclusivity)</label>
+                <textarea id="dl-modal-subtitle" rows="3" class="form-input text-xs leading-relaxed">${dl.modalSubtitle}</textarea>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="form-label">Invite Button Label</label>
+                  <input type="text" id="dl-modal-notify-btn" class="form-input text-xs font-bold" value="${dl.modalNotifyBtnText}">
+                </div>
+                <div>
+                  <label class="form-label">Success Message</label>
+                  <input type="text" id="dl-modal-success-msg" class="form-input text-xs" value="${dl.modalSuccessMsg}">
+                </div>
+              </div>
+
+              <!-- LAUNCH PROGRESS BAR SETTINGS (REPLACES OLD STATUS CHIPS) -->
+              <div class="pt-3 border-t border-outline-soft flex flex-col gap-3">
+                <div class="flex items-center justify-between">
+                  <span class="form-label mb-0 text-xs text-dark font-black">Launch Progress Bar</span>
+                  <span id="dl-progress-badge" class="px-2.5 py-0.5 rounded-full bg-pink-100 text-primary font-black text-xs">
+                    ${dl.progressPercent}% Complete
+                  </span>
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between text-[11px] font-bold text-gray-500 mb-1">
+                    <span>Progress Percentage</span>
+                    <span id="dl-progress-num-display" class="font-mono text-primary font-black">${dl.progressPercent}%</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <input type="range" id="dl-progress-range" min="0" max="100" step="1" value="${dl.progressPercent}" class="flex-1 accent-[#E040A0] cursor-pointer">
+                    <input type="number" id="dl-progress-num" min="0" max="100" step="1" value="${dl.progressPercent}" class="w-16 form-input text-center text-xs font-black">
+                  </div>
+                </div>
+
+                <!-- Live Progress Bar Preview inside Admin -->
+                <div class="w-full p-3 rounded-xl bg-surface-low border border-outline-soft">
+                  <div class="w-full h-2.5 bg-purple-100 rounded-full overflow-hidden">
+                    <div id="admin-progress-live-bar" class="h-full rounded-full bg-gradient-to-r from-[#E040A0] via-[#9357E8] to-[#2563EB] transition-all duration-300" style="width: ${dl.progressPercent}%;"></div>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  <div>
+                    <label class="form-label">Progress Title / Label</label>
+                    <input type="text" id="dl-progress-label" class="form-input text-xs" value="${dl.progressLabel}">
+                  </div>
+                  <div>
+                    <label class="form-label">Progress Subtext / Phase</label>
+                    <input type="text" id="dl-progress-sublabel" class="form-input text-xs" value="${dl.progressSublabel}">
+                  </div>
+                </div>
+
+                <div>
+                  <label class="form-label">Footer Microcopy (Below Form)</label>
+                  <input type="text" id="dl-modal-footer-note" class="form-input text-xs" value="${dl.modalFooterNote}">
+                </div>
               </div>
             </div>
 
-            <div>
-              <label class="form-label">Google Play Store URL</label>
-              <input type="text" id="dl-playstore" class="form-input text-xs" value="${dl.playStoreUrl || ''}">
+            <!-- RIGHT: PRODUCTION STORE & APK TARGET SETTINGS -->
+            <div class="admin-card p-6 flex flex-col gap-4">
+              <div class="flex items-center justify-between pb-3 border-b border-outline-soft">
+                <div class="flex items-center gap-2">
+                  <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[18px]">cloud_download</span>
+                  </span>
+                  <div>
+                    <h3 class="font-headline font-black text-base text-dark">Store Links & APK Package</h3>
+                    <p class="text-[11px] text-gray-400 font-medium">Applied when switching to Google Play or Direct APK modes</p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label class="form-label">Google Play Store URL</label>
+                <div class="flex gap-2">
+                  <input type="text" id="dl-playstore" class="form-input text-xs" placeholder="https://play.google.com/store/apps/details?id=com.treat.app" value="${dl.playStoreUrl || ''}">
+                  <a href="${dl.playStoreUrl || '#'}" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold flex items-center shrink-0" title="Test Play Store URL">
+                    <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+                  </a>
+                </div>
+              </div>
+
+              <div>
+                <label class="form-label">Android APK Package Download URL or Path</label>
+                <div class="flex gap-2">
+                  <input type="text" id="dl-apk-url" class="form-input text-xs" value="${dl.apkDownloadUrl || 'assets/downloads/Treat-v1.0.4-release.apk'}">
+                  <label class="px-3 py-2 rounded-xl bg-pink-50 hover:bg-pink-100 text-primary border border-pink-200 text-xs font-bold cursor-pointer flex items-center gap-1 shrink-0" title="Upload new APK package">
+                    <span class="material-symbols-outlined text-[16px]">upload_file</span>
+                    <span>Upload APK</span>
+                    <input type="file" id="dl-apk-file" accept=".apk" class="hidden">
+                  </label>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-3 gap-2">
+                <div>
+                  <label class="form-label">APK File Name</label>
+                  <input type="text" id="dl-apk-name" class="form-input text-xs font-mono" value="${dl.apkFileName || 'Treat-v1.0.4-release.apk'}">
+                </div>
+                <div>
+                  <label class="form-label">Version Number</label>
+                  <input type="text" id="dl-version" class="form-input text-xs" value="${dl.apkVersion || 'v1.0.4 (Android 9.0+)'}">
+                </div>
+                <div>
+                  <label class="form-label">Package Size</label>
+                  <input type="text" id="dl-size" class="form-input text-xs" value="${dl.apkSize || '24.8 MB'}">
+                </div>
+              </div>
+
+              <div>
+                <label class="form-label">Landing Page CTA Button Label</label>
+                <input type="text" id="dl-cta-text" class="form-input font-bold" value="${dl.ctaText || 'Download Treat for Android'}">
+              </div>
+
+              <div>
+                <label class="form-label">Landing Page Subtitle / Squad Callout</label>
+                <textarea id="dl-cta-subtext" rows="2" class="form-input text-xs">${dl.ctaSubtext || 'Your next great meal is already waiting.'}</textarea>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div>
+                  <label class="form-label">Web Demo URL</label>
+                  <input type="text" id="dl-webdemo" class="form-input text-xs" value="${dl.webDemoUrl || 'http://localhost:8080'}">
+                </div>
+                <div>
+                  <label class="form-label">Security & Trust Badge</label>
+                  <input type="text" id="dl-trust" class="form-input text-xs" value="${dl.trustBadge || '100% Virus-Free APK • 24.8 MB • Android 9.0+ • Instant Access'}">
+                </div>
+              </div>
             </div>
 
-            <div>
-              <label class="form-label">Web Demo URL</label>
-              <input type="text" id="dl-webdemo" class="form-input text-xs" value="${dl.webDemoUrl || 'http://localhost:8080'}">
+          </div>
+
+          <!-- 3. VIP EARLY ACCESS WAITLIST SUBSCRIBER HUB -->
+          <div class="admin-card p-6 flex flex-col gap-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-outline-soft">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-purple-100 text-secondary-dark flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[20px]">groups</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-headline font-black text-base text-dark">VIP Early Access Waitlist</h3>
+                    <span id="waitlist-count-badge" class="px-2 py-0.5 rounded-full bg-primary text-white text-[11px] font-black">
+                      ${waitlist.length} Subscribers
+                    </span>
+                  </div>
+                  <p class="text-xs text-gray-500 font-medium">Collected automatically from visitors who requested an early invite through the pre-launch banner.</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 self-start sm:self-auto">
+                <button type="button" id="export-waitlist-btn" class="px-4 py-2 rounded-full bg-dark hover:bg-dark-card text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-2xs active:scale-95 transition-all">
+                  <span class="material-symbols-outlined text-[16px]">file_download</span>
+                  <span>Export CSV</span>
+                </button>
+                <button type="button" id="clear-waitlist-btn" class="px-3.5 py-2 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 text-xs font-bold uppercase tracking-wider flex items-center gap-1 active:scale-95 transition-all" ${waitlist.length === 0 ? 'disabled' : ''}>
+                  <span class="material-symbols-outlined text-[16px]">delete</span>
+                  <span>Clear</span>
+                </button>
+              </div>
             </div>
 
-            <div>
-              <label class="form-label">Security & Trust Badge Text</label>
-              <input type="text" id="dl-trust" class="form-input text-xs" value="${dl.trustBadge || '100% Virus-Free APK • 24.8 MB • Android 9.0+ • Instant Access'}">
+            <!-- Subscribers Table -->
+            <div class="overflow-x-auto rounded-xl border border-outline-soft">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-surface-low border-b border-outline-soft">
+                  <tr>
+                    <th class="py-2.5 px-4 font-black text-dark text-[11px] uppercase tracking-wider">#</th>
+                    <th class="py-2.5 px-4 font-black text-dark text-[11px] uppercase tracking-wider">Contact (Email / WhatsApp)</th>
+                    <th class="py-2.5 px-4 font-black text-dark text-[11px] uppercase tracking-wider">Registration Date</th>
+                    <th class="py-2.5 px-4 font-black text-dark text-[11px] uppercase tracking-wider">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="waitlist-table-body" class="divide-y divide-outline-soft">
+                  ${waitlist.length === 0
+                    ? `<tr><td colspan="4" class="py-8 text-center text-gray-400 font-medium italic">No waitlist subscribers yet. Test the pre-launch modal on the landing page to see entries appear here!</td></tr>`
+                    : waitlist.map((sub, i) => `
+                        <tr class="hover:bg-purple-50/40 transition-colors">
+                          <td class="py-2.5 px-4 font-bold text-gray-400">${i + 1}</td>
+                          <td class="py-2.5 px-4 font-bold text-dark flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-[16px] text-primary">mark_email_read</span>
+                            <span>${sub.contact || 'Unknown'}</span>
+                          </td>
+                          <td class="py-2.5 px-4 text-gray-500 font-medium">${sub.date ? new Date(sub.date).toLocaleString() : 'N/A'}</td>
+                          <td class="py-2.5 px-4">
+                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-bold">
+                              <span>Early Access Invite</span>
+                            </span>
+                          </td>
+                        </tr>
+                      `).reverse().join('')
+                  }
+                </tbody>
+              </table>
             </div>
-
           </div>
         `;
         container.appendChild(wrap);
 
+        // Form Inputs
         const ctaT = wrap.querySelector('#dl-cta-text');
         const ctaS = wrap.querySelector('#dl-cta-subtext');
         const apkU = wrap.querySelector('#dl-apk-url');
+        const apkNameIn = wrap.querySelector('#dl-apk-name');
         const verIn = wrap.querySelector('#dl-version');
         const szIn = wrap.querySelector('#dl-size');
         const playU = wrap.querySelector('#dl-playstore');
         const webU = wrap.querySelector('#dl-webdemo');
         const truIn = wrap.querySelector('#dl-trust');
+        const badgeIn = wrap.querySelector('#dl-modal-badge');
+        const titleIn = wrap.querySelector('#dl-modal-title');
+        const subIn = wrap.querySelector('#dl-modal-subtitle');
+        const notifyIn = wrap.querySelector('#dl-modal-notify-btn');
+        const succIn = wrap.querySelector('#dl-modal-success-msg');
+        const footerNoteIn = wrap.querySelector('#dl-modal-footer-note');
+        const progRangeIn = wrap.querySelector('#dl-progress-range');
+        const progNumIn = wrap.querySelector('#dl-progress-num');
+        const progBadge = wrap.querySelector('#dl-progress-badge');
+        const progNumDisplay = wrap.querySelector('#dl-progress-num-display');
+        const adminLiveBar = wrap.querySelector('#admin-progress-live-bar');
+        const progLabelIn = wrap.querySelector('#dl-progress-label');
+        const progSubIn = wrap.querySelector('#dl-progress-sublabel');
 
         function updateDlLive() {
           if (!config.download) config.download = {};
           config.download.ctaText = ctaT.value;
           config.download.ctaSubtext = ctaS.value;
           config.download.apkDownloadUrl = apkU.value;
+          config.download.apkFileName = apkNameIn.value;
           config.download.apkVersion = verIn.value;
           config.download.apkSize = szIn.value;
           config.download.playStoreUrl = playU.value;
           config.download.webDemoUrl = webU.value;
           config.download.trustBadge = truIn.value;
+          config.download.modalBadge = badgeIn.value;
+          config.download.modalTitle = titleIn.value;
+          config.download.modalSubtitle = subIn.value;
+          config.download.modalNotifyBtnText = notifyIn.value;
+          config.download.modalSuccessMsg = succIn.value;
+          config.download.modalFooterNote = footerNoteIn.value;
+          config.download.progressPercent = parseInt(progRangeIn.value, 10) || 0;
+          config.download.progressLabel = progLabelIn.value;
+          config.download.progressSublabel = progSubIn.value;
           saveConfig(true);
         }
 
-        [ctaT, ctaS, apkU, verIn, szIn, playU, webU, truIn].forEach(i => i.addEventListener('input', updateDlLive));
+        // Progress Slider & Number Sync
+        progRangeIn.addEventListener('input', () => {
+          progNumIn.value = progRangeIn.value;
+          progBadge.textContent = progRangeIn.value + '% Complete';
+          progNumDisplay.textContent = progRangeIn.value + '%';
+          if (adminLiveBar) adminLiveBar.style.width = progRangeIn.value + '%';
+          updateDlLive();
+        });
 
+        progNumIn.addEventListener('input', () => {
+          let val = parseInt(progNumIn.value, 10);
+          if (isNaN(val)) val = 0;
+          if (val < 0) val = 0;
+          if (val > 100) val = 100;
+          progRangeIn.value = val;
+          progBadge.textContent = val + '% Complete';
+          progNumDisplay.textContent = val + '%';
+          if (adminLiveBar) adminLiveBar.style.width = val + '%';
+          updateDlLive();
+        });
+
+        const allInputs = [
+          ctaT, ctaS, apkU, apkNameIn, verIn, szIn, playU, webU, truIn,
+          badgeIn, titleIn, subIn, notifyIn, succIn, footerNoteIn, progLabelIn, progSubIn
+        ];
+        allInputs.forEach(input => {
+          if (input) input.addEventListener('input', updateDlLive);
+        });
+
+        // Mode Switching
+        wrap.querySelectorAll('.mode-card').forEach(card => {
+          card.addEventListener('click', () => {
+            const selectedMode = card.getAttribute('data-mode');
+            if (!config.download) config.download = {};
+            config.download.mode = selectedMode;
+
+            // Update UI highlight
+            wrap.querySelectorAll('.mode-card').forEach(c => {
+              const isSel = c.getAttribute('data-mode') === selectedMode;
+              c.className = `mode-card cursor-pointer p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 ${isSel ? 'border-[#E040A0] bg-pink-50/40 shadow-sm' : 'border-outline-soft bg-white hover:border-purple-200'}`;
+              const ind = c.querySelector('.mode-indicator');
+              if (ind) {
+                ind.className = `mode-indicator w-5 h-5 rounded-full border-2 flex items-center justify-center ${isSel ? 'border-primary bg-primary' : 'border-gray-300'}`;
+                const dot = ind.querySelector('span');
+                if (dot) dot.classList.toggle('hidden', !isSel);
+              }
+            });
+
+            // Update header badge
+            const headerBadge = wrap.querySelector('#active-mode-badge');
+            if (headerBadge) {
+              headerBadge.textContent = selectedMode === 'coming_soon' ? 'Pre-Launch Active' : selectedMode === 'play_store' ? 'Google Play Live' : selectedMode === 'direct_apk' ? 'Direct APK' : 'Dual Mode';
+            }
+
+            saveConfig(false);
+            showToast(`Launch mode updated: ${selectedMode === 'coming_soon' ? 'Pre-Launch Banner' : selectedMode === 'play_store' ? 'Google Play Direct' : selectedMode === 'direct_apk' ? 'Direct APK' : 'Dual Store & APK'}`);
+          });
+        });
+
+        // Save All Button
         wrap.querySelector('#save-dl-btn').addEventListener('click', () => {
           updateDlLive();
           saveConfig(false);
         });
+
+        // APK File Upload handler
+        const apkFileIn = wrap.querySelector('#dl-apk-file');
+        if (apkFileIn) {
+          apkFileIn.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+              apkNameIn.value = file.name;
+              const szMb = (file.size / (1024 * 1024)).toFixed(1) + ' MB';
+              szIn.value = szMb;
+              apkU.value = 'assets/downloads/' + file.name;
+              updateDlLive();
+              showToast(`Selected APK: ${file.name} (${szMb})`);
+            }
+          });
+        }
+
+        // CSV Waitlist Export
+        wrap.querySelector('#export-waitlist-btn').addEventListener('click', () => {
+          let list = [];
+          try { list = JSON.parse(localStorage.getItem('treat_waitlist_subscribers') || '[]'); } catch(e){}
+          if (list.length === 0) {
+            showToast('No waitlist subscribers to export yet');
+            return;
+          }
+          let csv = 'Index,Contact,Registration Date,Status\n';
+          list.forEach((sub, i) => {
+            csv += `${i + 1},"${(sub.contact || '').replace(/"/g, '""')}","${sub.date || ''}","Early Access Invite"\n`;
+          });
+          const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'treat-vip-waitlist.csv';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+          showToast('VIP waitlist exported as CSV');
+        });
+
+        // Clear Waitlist
+        wrap.querySelector('#clear-waitlist-btn').addEventListener('click', () => {
+          if (confirm('Are you sure you want to clear all VIP waitlist entries?')) {
+            localStorage.removeItem('treat_waitlist_subscribers');
+            showToast('VIP waitlist entries cleared');
+            renderCurrentTab();
+          }
+        });
+
+        // Live Preview Modal (Using Treat Logo & Progress Bar)
+        function openAdminPreviewModal() {
+          let modal = document.getElementById('admin-preview-modal');
+          if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'admin-preview-modal';
+            modal.className = 'fixed inset-0 z-[150] flex items-center justify-center p-4';
+            document.body.appendChild(modal);
+          }
+          modal.classList.remove('hidden');
+
+          const badgeVal = badgeIn.value;
+          const titleVal = titleIn.value;
+          const subVal = subIn.value;
+          const notifyBtnVal = notifyIn.value;
+          const progPercentVal = progRangeIn.value;
+          const progLabelVal = progLabelIn.value;
+          const progSubVal = progSubIn.value;
+          const footerNoteVal = footerNoteIn.value;
+          const playUrlVal = playU.value;
+          const apkUrlVal = apkU.value;
+          const apkSizeVal = szIn.value;
+          const successMsgVal = succIn.value;
+
+          const isDual = config.download.mode === 'store_and_apk';
+          const isPlay = config.download.mode === 'play_store';
+          const isApk = config.download.mode === 'direct_apk';
+
+          modal.innerHTML = `
+            <div id="admin-preview-backdrop" class="fixed inset-0 bg-black/65 backdrop-blur-md transition-opacity"></div>
+            <div class="relative bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-[0_25px_80px_-15px_rgba(24,16,36,0.35)] z-10 border border-purple-100 flex flex-col items-center text-center my-auto transition-all overflow-hidden animate-pop">
+              <!-- Ambient Glow Orbs -->
+              <div class="absolute -top-16 -left-16 w-36 h-36 bg-[#E040A0]/20 rounded-full filter blur-2xl pointer-events-none"></div>
+              <div class="absolute -bottom-16 -right-16 w-36 h-36 bg-[#7C52AA]/20 rounded-full filter blur-2xl pointer-events-none"></div>
+
+              <!-- Close Button -->
+              <button id="admin-preview-close" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-rose-600 active:scale-90 transition-all z-20">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+              </button>
+
+              <!-- Pre-Launch Badge -->
+              <div class="relative z-10">
+                <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-pink-50 border border-pink-200 text-[#E040A0] text-[10.5px] font-black uppercase tracking-wider mb-3">
+                  <span class="w-2 h-2 rounded-full bg-[#E040A0] animate-ping"></span>
+                  <span>${badgeVal}</span>
+                </span>
+              </div>
+
+              <!-- Treat Brand App Icon Chassis (Replaces generic launcher) -->
+              <div class="relative mb-3.5 z-10">
+                <div class="w-18 h-18 sm:w-20 sm:h-20 rounded-[28px] bg-white p-3 shadow-[0_12px_36px_-6px_rgba(224,64,160,0.3)] border border-pink-100 flex items-center justify-center relative group">
+                  <img src="assets/images/treat_bubble_logo.png" alt="Treat" class="w-full h-full object-contain filter drop-shadow">
+                  <span class="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-primary border-2 border-white animate-pulse"></span>
+                </div>
+              </div>
+
+              <!-- Title & Subtitle (Curious & Mysterious) -->
+              <div class="relative z-10 mb-4 max-w-md">
+                <h3 class="font-headline font-black text-2xl sm:text-[28px] text-[#181024] tracking-tight mb-2 leading-tight">
+                  ${titleVal}
+                </h3>
+                <p class="text-xs sm:text-sm text-gray-500 font-medium leading-relaxed">
+                  ${subVal}
+                </p>
+              </div>
+
+              <!-- Launch Progress Bar -->
+              <div class="w-full p-4 rounded-2xl bg-[#FAF6FE] border border-purple-100 mb-5 relative z-10 text-left shadow-2xs">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+                    <span class="text-xs font-black text-[#181024] uppercase tracking-wider">
+                      ${progLabelVal}
+                    </span>
+                  </div>
+                  <span class="px-2.5 py-0.5 rounded-full bg-white border border-pink-200 text-primary font-black text-xs shadow-2xs">
+                    ${progPercentVal}%
+                  </span>
+                </div>
+
+                <div class="w-full h-3 bg-purple-100/70 rounded-full overflow-hidden p-0.5 relative">
+                  <div class="h-full rounded-full bg-gradient-to-r from-[#E040A0] via-[#9357E8] to-[#2563EB] transition-all duration-500 relative overflow-hidden"
+                    style="width: ${progPercentVal}%;">
+                    <div class="absolute inset-0 bg-white/30 w-full h-full animate-[pulse_2s_ease-in-out_infinite]"></div>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between mt-2 text-[10.5px] text-gray-400 font-semibold">
+                  <span>${progSubVal}</span>
+                  <span class="text-primary font-extrabold flex items-center gap-0.5">
+                    <span>Invite Phase</span>
+                    <span class="material-symbols-outlined text-[13px]">arrow_forward</span>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Waitlist Form -->
+              <div id="admin-preview-form-box" class="w-full relative z-10 flex flex-col gap-2">
+                <form id="admin-preview-form" class="w-full flex flex-col sm:flex-row gap-2">
+                  <input type="text" id="admin-preview-input" placeholder="Enter your email or WhatsApp..." required class="flex-1 px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 text-xs font-semibold text-[#181024] focus:outline-none focus:border-[#E040A0]">
+                  <button type="submit" class="px-5 py-3 rounded-2xl bg-[#181024] hover:bg-[#2A1D3D] text-white text-xs font-black uppercase tracking-wider shadow-md flex items-center justify-center gap-1.5 shrink-0">
+                    <span>${notifyBtnVal}</span>
+                  </button>
+                </form>
+                <p class="text-[10.5px] text-gray-400 font-medium">${footerNoteVal}</p>
+              </div>
+
+              <!-- Success Box -->
+              <div id="admin-preview-success-box" class="hidden p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold w-full text-center flex flex-col items-center gap-1 relative z-10">
+                <span class="material-symbols-outlined text-emerald-600 text-[26px]">celebration</span>
+                <span class="text-sm font-black text-emerald-900">${successMsgVal}</span>
+                <span class="text-[11px] text-emerald-700 font-medium">Keep an eye on your inbox for your private access code.</span>
+              </div>
+
+              ${isDual || isPlay || isApk ? `
+                <div class="w-full flex flex-col gap-2.5 pt-4 border-t border-purple-100 relative z-10 mt-3">
+                  ${playUrlVal ? `
+                    <a href="${playUrlVal}" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-2xl bg-[#01875F] text-white text-xs font-extrabold flex items-center justify-center gap-2">
+                      <span>Get it on Google Play</span>
+                    </a>
+                  ` : ''}
+                  ${apkUrlVal ? `
+                    <a href="${apkUrlVal}" download class="w-full py-2.5 px-4 rounded-2xl bg-white border border-gray-200 text-[#181024] text-xs font-bold flex items-center justify-center gap-2">
+                      <span class="material-symbols-outlined text-[16px] text-primary">download</span>
+                      <span>Direct Android APK (${apkSizeVal})</span>
+                    </a>
+                  ` : ''}
+                </div>
+              ` : ''}
+            </div>
+          `;
+
+          const closePreview = () => {
+            modal.classList.add('hidden');
+          };
+          modal.querySelector('#admin-preview-close').addEventListener('click', closePreview);
+          modal.querySelector('#admin-preview-backdrop').addEventListener('click', closePreview);
+
+          modal.querySelector('#admin-preview-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const val = modal.querySelector('#admin-preview-input').value.trim();
+            if (!val) return;
+            try {
+              const list = JSON.parse(localStorage.getItem('treat_waitlist_subscribers') || '[]');
+              list.push({ contact: val, date: new Date().toISOString() });
+              localStorage.setItem('treat_waitlist_subscribers', JSON.stringify(list));
+            } catch (err) {}
+            modal.querySelector('#admin-preview-form-box').classList.add('hidden');
+            modal.querySelector('#admin-preview-success-box').classList.remove('hidden');
+            showToast('🎉 Test waitlist entry recorded!');
+            setTimeout(() => {
+              renderCurrentTab();
+            }, 1200);
+          });
+        }
+
+        wrap.querySelector('#preview-modal-btn').addEventListener('click', openAdminPreviewModal);
+        wrap.querySelector('#preview-modal-mini-btn').addEventListener('click', openAdminPreviewModal);
+      }
+
+      // =====================================================================
+      // TAB: OFFICIAL SUPPORT & SOCIAL CHANNELS
+      // =====================================================================
+      function renderContactTab(container) {
+        if (!config.contact) {
+          config.contact = (window.TREAT_DEFAULT_DATA && window.TREAT_DEFAULT_DATA.contact)
+            ? JSON.parse(JSON.stringify(window.TREAT_DEFAULT_DATA.contact))
+            : {
+                facebookUrl: 'https://facebook.com/treat.official',
+                facebookLabel: 'Treat Official',
+                supportEmail: 'support.treat@gmail.com',
+                copyrightText: '© 2026 Treat Inc.'
+              };
+        }
+
+        const c = config.contact;
+        const wrap = document.createElement('div');
+        wrap.className = 'flex flex-col gap-6';
+
+        wrap.innerHTML = `
+          <div class="pb-4 border-b border-outline-soft flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+              <h2 class="font-headline font-black text-2xl text-dark">Support & Official Facebook</h2>
+              <p class="text-xs sm:text-sm text-gray-500 font-medium">Manage Treat's official social channels, customer support email, and footer copyright.</p>
+            </div>
+            <button type="button" id="save-contact-top-btn" class="px-5 py-2.5 rounded-full bg-primary hover:bg-primary-dark text-white text-xs font-black uppercase tracking-wider shadow-sm hover:shadow-md active:scale-95 transition-all flex items-center gap-1.5 self-start sm:self-auto">
+              <span class="material-symbols-outlined text-[16px]">save</span>
+              <span>Save Channels</span>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Official Facebook Page Card -->
+            <div class="admin-card p-6 flex flex-col justify-between gap-4">
+              <div>
+                <div class="w-12 h-12 rounded-2xl bg-blue-50 text-[#1877F2] flex items-center justify-center mb-3">
+                  <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                </div>
+                <h4 class="font-headline font-black text-base text-dark">Treat Official Facebook Page</h4>
+                <p class="text-xs text-gray-500 font-medium mt-1 mb-4">Official social page for dining drop announcements, community events, and squad photo tags.</p>
+
+                <div class="flex flex-col gap-3">
+                  <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Facebook Page URL</label>
+                    <div class="relative">
+                      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">public</span>
+                      <input type="url" id="contact-fb-url" value="${c.facebookUrl || ''}" class="form-input pl-9 text-xs" placeholder="https://facebook.com/treat.official">
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Display Label</label>
+                    <input type="text" id="contact-fb-label" value="${c.facebookLabel || 'Treat Official'}" class="form-input text-xs" placeholder="Treat Official">
+                  </div>
+                </div>
+              </div>
+
+              <a id="contact-fb-preview-btn" href="${c.facebookUrl || '#'}" target="_blank" class="w-full py-2.5 rounded-full bg-blue-50 hover:bg-blue-100 text-[#1877F2] text-xs font-bold flex items-center justify-center gap-1.5 transition-colors">
+                <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+                <span>Test Facebook Link</span>
+              </a>
+            </div>
+
+            <!-- Official Support Email Card -->
+            <div class="admin-card p-6 flex flex-col justify-between gap-4">
+              <div>
+                <div class="w-12 h-12 rounded-2xl bg-pink-50 text-primary flex items-center justify-center mb-3">
+                  <span class="material-symbols-outlined text-[24px]">support_agent</span>
+                </div>
+                <h4 class="font-headline font-black text-base text-dark">Treat Customer Support Email</h4>
+                <p class="text-xs text-gray-500 font-medium mt-1 mb-4">Official inbox for restaurant onboardings, squad booking inquiries, and customer help.</p>
+
+                <div class="flex flex-col gap-3">
+                  <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Support Email Address</label>
+                    <div class="relative">
+                      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">mail</span>
+                      <input type="email" id="contact-support-email" value="${c.supportEmail || 'support.treat@gmail.com'}" class="form-input pl-9 text-xs" placeholder="support.treat@gmail.com">
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Footer Copyright Text</label>
+                    <input type="text" id="contact-copyright" value="${c.copyrightText || '© 2026 Treat Inc.'}" class="form-input text-xs" placeholder="© 2026 Treat Inc.">
+                  </div>
+                </div>
+              </div>
+
+              <a id="contact-email-preview-btn" href="mailto:${c.supportEmail || 'support.treat@gmail.com'}" class="w-full py-2.5 rounded-full bg-pink-50 hover:bg-pink-100 text-primary text-xs font-bold flex items-center justify-center gap-1.5 transition-colors">
+                <span class="material-symbols-outlined text-[16px]">mail</span>
+                <span>Test Email Client</span>
+              </a>
+            </div>
+          </div>
+        `;
+
+        const fbUrlIn = wrap.querySelector('#contact-fb-url');
+        const fbLabelIn = wrap.querySelector('#contact-fb-label');
+        const emailIn = wrap.querySelector('#contact-support-email');
+        const copyrightIn = wrap.querySelector('#contact-copyright');
+        const fbPreview = wrap.querySelector('#contact-fb-preview-btn');
+        const emailPreview = wrap.querySelector('#contact-email-preview-btn');
+        const saveBtn = wrap.querySelector('#save-contact-top-btn');
+
+        const saveChanges = () => {
+          c.facebookUrl = fbUrlIn.value.trim();
+          c.facebookLabel = fbLabelIn.value.trim() || 'Treat Official';
+          c.supportEmail = emailIn.value.trim() || 'support.treat@gmail.com';
+          c.copyrightText = copyrightIn.value.trim() || '© 2026 Treat Inc.';
+
+          if (fbPreview) fbPreview.href = c.facebookUrl || '#';
+          if (emailPreview) emailPreview.href = `mailto:${c.supportEmail}`;
+
+          saveConfig();
+          showToast('Support email & Facebook settings saved to website!');
+        };
+
+        saveBtn.addEventListener('click', saveChanges);
+
+        [fbUrlIn, fbLabelIn, emailIn, copyrightIn].forEach(inp => {
+          inp.addEventListener('input', () => {
+            c.facebookUrl = fbUrlIn.value.trim();
+            c.facebookLabel = fbLabelIn.value.trim() || 'Treat Official';
+            c.supportEmail = emailIn.value.trim() || 'support.treat@gmail.com';
+            c.copyrightText = copyrightIn.value.trim() || '© 2026 Treat Inc.';
+            if (fbPreview) fbPreview.href = c.facebookUrl || '#';
+            if (emailPreview) emailPreview.href = `mailto:${c.supportEmail}`;
+            saveConfig(true);
+          });
+        });
+
+        container.appendChild(wrap);
       }
 
       // =====================================================================
@@ -1442,4 +2578,5 @@
     })();
   </script>
 </body>
+
 </html>
