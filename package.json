@@ -1,0 +1,30 @@
+{
+  "name": "treat-landing-page",
+  "version": "1.0.0",
+  "description": "Official landing page and interactive showcase for Treat - Where Work Meets Food. Featuring 3D device mockups, responsive mobile touch carousel, and full-featured Admin Studio.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "treat",
+    "landing-page",
+    "food-tech",
+    "threejs",
+    "tailwindcss",
+    "firebase-auth",
+    "interactive-showcase",
+    "mobile-first"
+  ],
+  "author": "EFTAKHAR-AMIN-SAKIB",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/treatapp2k27/treat-landing-page.git"
+  },
+  "bugs": {
+    "url": "https://github.com/treatapp2k27/treat-landing-page/issues"
+  },
+  "homepage": "https://github.com/treatapp2k27/treat-landing-page#readme",
+  "license": "MIT"
+}
